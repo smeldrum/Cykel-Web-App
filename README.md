@@ -28,3 +28,6 @@ Provide a personal experience and visual evidence to help motivate people to cha
 
 ##Algorithms or Special Techniques:
 - Calculation to translate distance to calories, based on timing and age and sex, etc.
+
+##Mockup:
+![Mockup of website design](mockup.jpg)

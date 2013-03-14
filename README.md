@@ -11,7 +11,6 @@ Provide a personal experience and visual evidence to help motivate people to cha
 - Calculate calories burned per trip
 - Usage of texting when departing and arriving to easily collect data
 - Monitor statistics and provide intuitive visual interfaces for users to monitor their progress
-- Show leaderboard for users that have to bike the farthest, burn the most calories, etc.
 
 ##"Pick Five" Items:
 1. Geolocation

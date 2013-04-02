@@ -32,4 +32,4 @@ Provide a personal experience and visual evidence to help motivate people to cha
 ![Mockup of website design](mockup.jpg)
 
 # Comments by Ming:
-* Motivation is a hard problem.
+* Good.  Not terribly original but motivation is a hard problem.

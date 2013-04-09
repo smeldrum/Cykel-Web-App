@@ -27,6 +27,7 @@ function initialize(){
 function direct(){
  directionsDisplay = new google.maps.DirectionsRenderer();
  directionsDisplay.setMap(map);
+ directionsDisplay.setPanel(document.getElementById("directions"));
  var start = "Tufts University, 419 Boston Avenue, Medford, MA, United States";
  var end = "Fresh Pond Parkway, Cambridge, MA";
  var request = {

@@ -1,0 +1,19 @@
+html { height: 100% }
+body { height: 100%; margin: 0px; padding: 0px }
+#found{
+	position: absolute;
+	bottom: 0%;
+	margin-left: 50px;
+	padding-left: 10px;
+	width: 30%;
+	background-color: grey;
+	border-radius: 5px;
+	opacity: .9;
+	z-index: 99;
+}
+#map_canvas { 
+    position: absolute;
+	width: 100%;
+	height: 100%;
+	
+}

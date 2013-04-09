@@ -18,6 +18,7 @@
 	margin-top: 30px;
 }
 
-#btn_signup {
-	margin-top: 20px;
+#btn_register {
+	display: none;
+	background-color: #00AA00;
 }

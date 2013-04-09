@@ -10,4 +10,12 @@ $(document).ready(function() {
 			$('#mainstage, #btn_signin').fadeIn('slow');
 		});
 	});
+	
+	$('#password').focus(function() {
+		$('#password_warning').fadeIn('fast');
+	});
+	
+	$('#password').blur(function() {
+		$('#password_warning').fadeOut('fast');
+	});
 });

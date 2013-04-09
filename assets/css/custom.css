@@ -22,3 +22,12 @@
 	display: none;
 	background-color: #00AA00;
 }
+
+#password_warning {
+	display: none;
+	color: #FF0000;
+	font-weight: bold;
+	font-size: 14px;
+	margin-left: 10px;
+	margin-right: -206px;
+}

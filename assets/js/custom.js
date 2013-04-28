@@ -74,4 +74,12 @@ $(document).ready(function() {
 			$('#password_conf_warning').fadeOut('fast');
 		}
 	});
+	
+	$('#btn_signup').click(function() {
+		$.post("http://infinite-waters-4536.herokuapp.com/adduser.json",  {
+			email: $('#email').val(),
+			password: $('#password').val(),
+			password_confirm: $('#password_confirm').val()
+		});
+	});
 });

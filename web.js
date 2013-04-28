@@ -1,4 +1,5 @@
 var express = require("express");
+var crypto = require("crypto");
 var app = express(express.logger());
 app.use(express.bodyParser());
 app.set('title', 'nodeapp');
@@ -50,16 +51,17 @@ app.post('/adduser.json', function(request, response, next) {
 	check(request.body.password, 'Password too short').len(8, 128);
 	check(request.body.password, 'Passwords do not match').equals(request.body.password_confirm);
 	
+	var passHash = crypto.createHash('sha1');
+	var hashedPassword = passHash.digest('hex');
+	
 	var d = new Date();
 	var n = d.toString();
 	
 	db.collection("users", function(er, collection) {
 		collection.insert( {email: email,
-							password: password,
-							password_confirm: password_confirm,
+							password: hashedPassword,
 							user_joined: n 
 							}, function(err, inserted) {
-								//error
 							}); 
 	});
 });

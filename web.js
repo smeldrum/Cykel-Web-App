@@ -3,6 +3,9 @@ var app = express(express.logger());
 app.use(express.bodyParser());
 app.set('title', 'nodeapp');
 
+var check = require('validator').check,
+	sanitize = require('validator').sanitize
+
 var mongoUri = process.env.MONGOLAB_URI ||
 	process.env.MONGOHQ_URL ||
 	'mongodb://admin:mingchow@alex.mongohq.com:10085/app15350071';
@@ -31,9 +34,33 @@ app.all('/', function(request, response, next) {
 app.get('/userdata.json', function(request, response) {
 	response.set('Content-Type', 'text/json');
 	db.collection("users", function(er, collection) {
-		collection.find({username: request.query["username"]}).toArray(function(err, results) {
+		collection.find({email: request.query["email"]}).toArray(function(err, results) {
 			response.send(results);
 		});
+	});
+});
+
+app.post('/adduser.json', function(request, response, next) {
+	
+	var email = sanitize(request.body.email).xss();
+	var password = sanitize(request.body.password).xss();
+	var password_confirm = sanitize(request.body.password_confirm).xss();
+	
+	check(request.body.email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+	check(request.body.password, 'Password too short').len(8, 128);
+	check(request.body.password, 'Passwords do not match').equals(request.body.password_confirm);
+	
+	var d = new Date();
+	var n = d.toString();
+	
+	db.collection("users", function(er, collection) {
+		collection.insert( {email: email,
+							password: password,
+							password_confirm: password_confirm,
+							user_joined: n 
+							}, function(err, inserted) {
+								//error
+							}); 
 	});
 });
 

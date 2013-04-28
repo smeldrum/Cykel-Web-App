@@ -23,12 +23,20 @@
 	background-color: #00AA00;
 }
 
-#email_warning, #password_warning, #password_conf_warning {
+#form_warning, #email_warning, #password_warning, #password_conf_warning {
 	display: none;
 	color: #FF0000;
 	font-weight: bold;
 	font-size: 14px;
+}
+
+#email_warning, #password_warning, #password_conf_warning {
 	position: absolute;
 	margin-left: 460px;
 	margin-top: -36px;
+}
+
+#form_warning {
+	margin-top: -5px;
+	margin-bottom: -25px;
 }

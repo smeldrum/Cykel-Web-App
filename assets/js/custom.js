@@ -76,10 +76,23 @@ $(document).ready(function() {
 	});
 	
 	$('#btn_signup').click(function() {
-		$.post("http://infinite-waters-4536.herokuapp.com/adduser.json",  {
-			email: $('#email').val(),
-			password: $('#password').val(),
-			password_confirm: $('#password_confirm').val()
+		$.ajax({
+			type: "POST",
+			url: "http://infinite-waters-4536.herokuapp.com/adduser.json",
+			data: "email=" + $('#email').val() + "&password=" + $('#password').val() +
+					"&password_confirm=" + $('#password_confirm').val(),
+			success: function (msg) {
+				console.log("Success " + msg);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				if ($('#email').val().length == 0 || $('#password').val().length == 0
+					|| $('#password_confirm').val().length == 0) {
+					$('#form_warning').text("Please fill in all fields");
+				} else {
+					$('#form_warning').text("There are some errors in the form. Please see red text");
+				}
+				$('#form_warning').fadeIn('fast');
+			}
 		});
 	});
 });

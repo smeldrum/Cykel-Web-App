@@ -23,11 +23,12 @@
 	background-color: #00AA00;
 }
 
-#password_warning {
+#email_warning, #password_warning, #password_conf_warning {
 	display: none;
 	color: #FF0000;
 	font-weight: bold;
 	font-size: 14px;
-	margin-left: 10px;
-	margin-right: -206px;
+	position: absolute;
+	margin-left: 460px;
+	margin-top: -36px;
 }

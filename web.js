@@ -31,7 +31,7 @@ app.all('/', function(request, response, next) {
 app.get('/userdata.json', function(request, response) {
 	response.set('Content-Type', 'text/json');
 	db.collection("users", function(er, collection) {
-		collection.find({name: request.query["name"]}).toArray(function(err, results) {
+		collection.find({username: request.query["username"]}).toArray(function(err, results) {
 			response.send(results);
 		});
 	});

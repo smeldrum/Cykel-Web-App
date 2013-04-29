@@ -1,0 +1,1 @@
+var speed = 0;

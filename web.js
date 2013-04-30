@@ -66,8 +66,6 @@ app.post('/adduser.json', function(request, response, next) {
 							}); 
 	});
 	
-	response.writeHead(301, {Location: 'secondaryPage.html'});
-	response.end();
 });
 
 var port = process.env.PORT || 5000;

@@ -66,10 +66,7 @@ app.post('/recvtext', function(request, response) {
 		var from = sanitize(request.body.From).xss();
 		var d = new Date();
 		var n = d.toString();
-		var twiml = '<?xml version="1.0" encoding="UTF-8" ?>
-					 <Response>
-					 	<Sms>Received at ' + n + '. Thanks</Sms>
-					 </Response>';
+		var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Thanks</Sms></Response>';
 		console.log("Text received from " + from + " at " + n);
 		response.type('text/xml');
 		response.send(twiml);

@@ -1,6 +1,7 @@
 var express = require("express");
 var crypto = require("crypto");
 var app = express(express.logger());
+var twilio = require('twilio');
 app.use(express.bodyParser());
 app.set('title', 'nodeapp');
 app.use(express.static(__dirname+'/public'));
@@ -15,6 +16,8 @@ var mongo = require('mongodb');
 var db = mongo.Db.connect(mongoUri, function(error, databaseConnection) {
 	db = databaseConnection;
 });
+
+var client = new twilio.RestClient('ACfc2a602a223995a398db1ac614833449', 'cd620dabe507d714fd00e7f73fa626f1');
 
 app.configure(function() {
 	app.use(express.methodOverride());
@@ -39,6 +42,22 @@ app.get('/userdata.json', function(request, response) {
 		collection.find({email: request.query["email"]}).toArray(function(err, results) {
 			response.send(results);
 		});
+	});
+});
+
+app.post('/sendtext', function(request, response) {
+	var destnum = sanitize(request.body.number).xss();
+	var message = sanitize(request.body.message).xss();
+	client.sms.messages.create({
+		to: destnum,
+		from:'+19784963121',
+		body: message
+	}, function (err, message) {
+		if (!err) {
+			response.send();
+		} else {
+			console.log("Error");
+		}
 	});
 });
 

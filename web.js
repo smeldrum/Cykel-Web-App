@@ -63,14 +63,16 @@ app.post('/sendtext', function(request, response) {
 
 app.post('/recvtext', function(request, response) {
 	if (twilio.validateExpressRequest(request, 'cd620dabe507d714fd00e7f73fa626f1')) {
-		var twiml = new twilio.TwimlResponse();
 		var from = sanitize(request.body.From).xss();
 		var d = new Date();
 		var n = d.toString();
+		var twiml = '<?xml version="1.0" encoding="UTF-8" ?>
+					 <Response>
+					 	<Sms>Received at ' + n + '. Thanks</Sms>
+					 </Response>';
 		console.log("Text received from " + from + " at " + n);
-		twiml.say("Received");
 		response.type('text/xml');
-		response.send(twiml.toString());
+		response.send(twiml);
 	} else {
 		response.send('Invalid sender');
 	}

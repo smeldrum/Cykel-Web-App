@@ -1,0 +1,42 @@
+#signup_head {
+	color: #00CC00;
+	font-size: 48px;
+	font-weight: bold;
+}
+
+#signin {
+	display: none;
+	margin: 50px 0;
+}
+
+.register {
+	list-style-type: none;
+	margin-left: -10px;
+}
+
+#register {
+	margin-top: 30px;
+}
+
+#btn_register {
+	display: none;
+	background-color: #00AA00;
+}
+
+#form_warning, #email_warning, #password_warning, #password_conf_warning {
+	display: none;
+	color: #FF0000;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#email_warning, #password_warning, #password_conf_warning {
+	position: absolute;
+	margin-left: 460px;
+	margin-top: -36px;
+}
+
+#form_warning {
+	margin-top: -5px;
+	margin-bottom: -25px;
+}

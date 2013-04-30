@@ -21,7 +21,7 @@
       <div class="container">
 
 <<<<<<< HEAD
-        <div class="navbar navbar-inverse">
+        <div class="navbar navbar-inverse" style="width: 100%;">
 =======
         <div class="navbar navbar-inverse">
 >>>>>>> e39839047f4fd5f86af2a8be37e7a5a84e9e7a07

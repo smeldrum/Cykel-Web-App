@@ -3,6 +3,7 @@ var crypto = require("crypto");
 var app = express(express.logger());
 app.use(express.bodyParser());
 app.set('title', 'nodeapp');
+app.use(express.static(__dirname+'/public'));
 
 var check = require('validator').check,
 	sanitize = require('validator').sanitize

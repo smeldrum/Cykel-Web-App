@@ -9,14 +9,36 @@ app.use(express.static(__dirname+'/public'));
 var check = require('validator').check,
 	sanitize = require('validator').sanitize
 
+
 var mongoUri = process.env.MONGOLAB_URI ||
 	process.env.MONGOHQ_URL ||
 	'mongodb://admin:mingchow@alex.mongohq.com:10085/app15350071';
 var mongo = require('mongodb');
+/*
 var db = mongo.Db.connect(mongoUri, function(error, databaseConnection) {
 	db = databaseConnection;
 });
+*/
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://admin:mingchow@alex.mongohq.com:10085/app15350071');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error'));
+db.once('open', function callback(){});
+
+var userSchema = new mongoose.Schema({
+	    email: String,
+	 password: String,
+	    phone: String,
+	     home: String,
+	     work: String,
+	   joined: Date,
+	intransit: Boolean,
+	    trips: [{start: Date, finish: Date, duration: String, calories: Number}]
+});
+
+var ObjectID = mongoose.Schema.ObjectID;
+var user = mongoose.model('user', userSchema);
 var client = new twilio.RestClient('ACfc2a602a223995a398db1ac614833449', 'cd620dabe507d714fd00e7f73fa626f1');
 
 app.configure(function() {
@@ -36,12 +58,38 @@ app.all('/', function(request, response, next) {
 	next();
 });
 
+app.post('/adduser.json', function(request, response, next) {
+	
+	var email = sanitize(request.body.email).xss();
+	var password = sanitize(request.body.password).xss();
+	var password_confirm = sanitize(request.body.password_confirm).xss();
+	
+	check(request.body.email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+	check(request.body.password, 'Password too short').len(8, 128);
+	check(request.body.password, 'Passwords do not match').equals(request.body.password_confirm);
+	
+	var passHash = crypto.createHash('sha1');
+	var hashedPassword = passHash.digest('hex');
+	var dateJoined = new Date();
+	
+	var newuser_data = {
+		      email: email,
+		   password: hashedPassword,
+		     joined: dateJoined,
+		  intransit: false
+	};
+	
+	var newuser = new user(newuser_data);
+	newuser.save( function(error, data) {
+		if (error) response.json(error);
+		else       response.json(data);
+	});
+});
+
 app.get('/userdata.json', function(request, response) {
 	response.set('Content-Type', 'text/json');
-	db.collection("users", function(er, collection) {
-		collection.find({email: request.query["email"]}).toArray(function(err, results) {
-			response.send(results);
-		});
+	user.find({ email: request.query["email"]}, function(err, results) {
+		response.send(results);
 	});
 });
 
@@ -49,15 +97,12 @@ app.post('/sendtext', function(request, response) {
 	var destnum = sanitize(request.body.number).xss();
 	var message = sanitize(request.body.message).xss();
 	client.sms.messages.create({
-		to: destnum,
+		  to: destnum,
 		from:'+19784963121',
 		body: message
 	}, function (err, message) {
-		if (!err) {
-			response.send();
-		} else {
-			console.log("Error");
-		}
+		if (!err) response.send();
+		else	  console.log("Error");
 	});
 });
 
@@ -73,32 +118,6 @@ app.post('/recvtext', function(request, response) {
 	} else {
 		response.send('Invalid sender');
 	}
-});
-
-app.post('/adduser.json', function(request, response, next) {
-	
-	var email = sanitize(request.body.email).xss();
-	var password = sanitize(request.body.password).xss();
-	var password_confirm = sanitize(request.body.password_confirm).xss();
-	
-	check(request.body.email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
-	check(request.body.password, 'Password too short').len(8, 128);
-	check(request.body.password, 'Passwords do not match').equals(request.body.password_confirm);
-	
-	var passHash = crypto.createHash('sha1');
-	var hashedPassword = passHash.digest('hex');
-	
-	var d = new Date();
-	var n = d.toString();
-	
-	db.collection("users", function(er, collection) {
-		collection.insert( {email: email,
-							password: hashedPassword,
-							user_joined: n 
-							}, function(err, inserted) {
-							}); 
-	});
-	
 });
 
 var port = process.env.PORT || 5000;

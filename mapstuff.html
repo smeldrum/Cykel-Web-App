@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- <link rel = "stylesheet" href = desktop.css media = "print, screen and (min-device-width:640px)"/>
+<link rel = "stylesheet" href = handheld.css media = "only screen and (max-device-width:640px)"/>
+-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="mapstuff.css">
+<title> Biking Map </title>
+
+<script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCILxNMrEoqISeYwjULBYkUL15HbLUSyOg&sensor=false"></script>
+<script src = "mapstuff.js"></script> 
+
+</head>
+
+<body onload ="initialize()">
+    <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse" style="width: 100%;">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Project name</a>
+              <ul class="nav">
+                <li class="active"><a href="#">Map</a></li>
+                <li><a href="#about">Statistics</a></li>
+                <li><a href="#contact">Account</a></li>
+              </ul>
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+<div id="map_canvas" width="600" height="200"></div>
+<div id="directions" width="300" height="200"></div>
+<div width="200" height="700"><p>testing</p></div>
+
+
+
+</body>
+
+</html>

@@ -78,8 +78,7 @@ $(document).ready(function() {
 	$('#btn_signup').click(function() {
 		$.ajax({
 			type: "POST",
-			//url: "http://infinite-waters-4536.herokuapp.com/adduser.json",
-			url: "http://localhost:5000/adduser.json",
+			url: "http://infinite-waters-4536.herokuapp.com/adduser.json",
 			data: "email=" + $('#email').val() + "&password=" + $('#password').val() +
 					"&password_confirm=" + $('#password_confirm').val(),
 			success: function (msg) {

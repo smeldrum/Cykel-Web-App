@@ -113,6 +113,7 @@ app.post('/sendtext', function(request, response) {
 app.post('/recvtext', function(request, response) {
 	if (twilio.validateExpressRequest(request, 'cd620dabe507d714fd00e7f73fa626f1')) {
 		var from = sanitize(request.body.From).xss();
+		console.log("TEXT RECEIVED FROM " + from);
 		var d = new Date();
 		var n = d.toString();
 		var intransit;

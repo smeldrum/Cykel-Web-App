@@ -15,7 +15,7 @@
 #border {
 	border-style: dashed;
 	border-width: thin;
-	padding: 19px
+	padding: 19px;
 }
 .clearfix:before,
 .clearfix:after {

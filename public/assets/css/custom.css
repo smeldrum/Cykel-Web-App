@@ -23,7 +23,7 @@
 	background-color: #00AA00;
 }
 
-#form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning {
+#form_warning, #signin_form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning {
 	display: none;
 	color: #FF0000;
 	font-weight: bold;
@@ -39,4 +39,8 @@
 #form_warning {
 	margin-top: -5px;
 	margin-bottom: -25px;
+}
+
+#signin_form_warning {
+	margin-top: -20px;
 }

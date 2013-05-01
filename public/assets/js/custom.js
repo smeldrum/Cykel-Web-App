@@ -109,4 +109,19 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$('#btn_submit_signin').click(function() {
+		$.ajax({
+			type: "POST",
+			url: "/login",
+			data: "email=" + $('#signin_email').val() + "&password=" + $('#signin_password').val(),
+			success: function(msg) {
+				console.log("Success " + msg);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$('#signin_form_warning').text("Wrong username and/or password");
+				$('#signin_form_warning').fadeIn('fast');
+			}
+		});
+	});
 });

@@ -36,9 +36,11 @@ var userSchema = new mongoose.Schema({
 	    phone: String,
 	     home: String,
 	     work: String,
+	 distance: Number,
+	   weight: Number,
 	   joined: Date,
 	intransit: Boolean,
-	     trips: []
+	    trips: []
 });
 
 
@@ -92,6 +94,27 @@ app.post('/adduser.json', function(request, response, next) {
 		if (error) response.json(error);
 		else       response.json(data);
 	});
+	response.send();
+});
+
+app.post('/login', function(request, response) {
+	var email = sanitize(request.body.email).xss();
+	var password = sanitize(request.body.phone).xss();
+	var passHash = crypto.createHash('sha1');
+	var hashedPassword = passHash.digest('hex');
+	
+	var user = user.findOne({email: email}, function(err, doc) {
+		if (doc) {
+			if (doc.password != hashedPassword) {
+				throw "Wrong email or password";
+			} else {
+				document.write("cool");
+			}
+		} else {
+			throw "Wrong email or password";
+		}
+	});
+	response.send();
 });
 
 app.get('/userdata.json', function(request, response) {
@@ -112,6 +135,7 @@ app.post('/sendtext', function(request, response) {
 		if (!err) response.send();
 		else	  console.log("Error"); response.send();
 	});
+	response.send();
 });
 
 app.post('/recvtext', function(request, response) {

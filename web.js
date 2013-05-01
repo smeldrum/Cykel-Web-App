@@ -2,6 +2,8 @@ var express = require("express");
 var crypto = require("crypto");
 var app = express(express.logger());
 var twilio = require('twilio');
+var gm = require('googlemaps');
+var util = require('util');
 app.use(express.bodyParser());
 app.set('title', 'nodeapp');
 app.use(express.static(__dirname+'/public'));
@@ -105,11 +107,16 @@ app.post('/addadditional', function(request, response) {
 		if (doc) {
 			doc.home = home_address;
 			doc.work = work_address;
-			/* calculate distance and insert that too */
 			doc.weight = weight;
-			doc.save(function(err) {
-				if (err) console.log(err);
+			
+			var directions = gm.directions(home_address, work_address, function(err, results) {
+				var distance = results.routes[0].legs[0].distance.value; //returned in meters
+				doc.distance = distance;			
+				doc.save(function(err) {
+					if (err) console.log(err);
+				});
 			});
+
 			response.send();
 		} else {
 			console.log("Email not found");

@@ -76,6 +76,7 @@ app.post('/adduser.json', function(request, response, next) {
 	
 	var passHash = crypto.createHash('sha1');
 	var hashedPassword = passHash.digest('hex');
+	phone = "+1" + phone;
 	var dateJoined = new Date();
 	
 	var newuser_data = {

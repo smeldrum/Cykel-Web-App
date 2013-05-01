@@ -146,5 +146,21 @@ $(document).ready(function() {
 		});
 	});
 	
+	/* cancel additional info */
+	
+	$('#btn_cancel_additional').click(function() {
+		$.ajax({
+			type: "POST",
+			url: "/deleteaccount",
+			data: "email=" + localStorage["cykelSession"],
+			success: function(msg) {
+				window.location.replace("index.html");
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				/* handle errors here */
+			}
+		});
+	});
+	
 	
 });

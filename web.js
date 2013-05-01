@@ -146,9 +146,24 @@ app.post('/login', function(request, response) {
 	});
 });
 
+app.post('/deleteaccount', function(request, response) {
+	var email = sanitize(request.body.email).xss();
+	user.findOne({email: email}, function(err, results) {
+		if (!err) {
+			results.remove();
+			response.writeHead(200);
+			response.send();
+		} else {
+			response.writeHead(400);
+			response.send();
+		}
+	});
+});
+
 app.get('/userdata.json', function(request, response) {
 	response.set('Content-Type', 'text/json');
-	user.find({ email: request.query["email"]}, function(err, results) {
+	var email = sanitize(request.query["email"]).xss();
+	user.find({ email: email}, function(err, results) {
 		response.send(results);
 	});
 });
@@ -197,7 +212,7 @@ app.post('/recvtext', function(request, response) {
 					var speed = distance/duration;
 					var weight = doc.weight;
 					var calories = ((duration * weight*(.0053)+.0083*speed^3)*7.2)/10;
-					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Congrats, you made it. You burned ' + calories + ' calories on that trip!</Sms></Response>';
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Congrats, you made it. You burned ' + Math.ceil(calories) + ' calories on that trip!</Sms></Response>';
 					doc.trips.push({start: start, finish: d, duration: duration, calories: calories});
 					doc.save(function(err) {
 						if (err) console.log(err);

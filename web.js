@@ -90,8 +90,10 @@ app.post('/adduser.json', function(request, response, next) {
 	
 	var newuser = new user(newuser_data);
 	newuser.save(function(error, data) {
+/*
 		if (error) response.json(error);
 		else       response.json(data);
+*/
 	});
 	response.send();
 });
@@ -105,7 +107,7 @@ app.post('/login', function(request, response) {
 		if (doc) {
 			console.log("original " + doc.password);
 			console.log("input " + hashedPassword);
-			if (doc.password === hashedPassword) {
+			if (doc.password == hashedPassword) {
 				console.log("cool");
 			} else {
 				console.log( "Wrong email or password");

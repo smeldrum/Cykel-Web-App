@@ -115,14 +115,18 @@ app.post('/addadditional', function(request, response) {
 			doc.weight = weight;
 			
 			var directions = gm.directions(home_address, work_address, function(err, results) {
-				var distance = results.routes[0].legs[0].distance.value; //returned in meters
-				doc.distance = distance;			
-				doc.save(function(err) {
-					if (err) console.log(err);
-				});
+				if (results) {
+					var distance = results.routes[0].legs[0].distance.value; //returned in meters
+					doc.distance = distance;			
+					doc.save(function(err) {
+						if (err) console.log(err);
+					});
+					response.send();
+				} else {
+					response.writeHead(400);
+					response.send();
+				}
 			});
-
-			response.send();
 		} else {
 			console.log("Email not found");
 			response.send();

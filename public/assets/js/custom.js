@@ -158,7 +158,7 @@ $(document).ready(function() {
 				if ($('#home_address').val().length == 0 || $('#work_address').val().length == 0 || $('#weight').val().length == 0) {
 					$('#additional_warning').html("Please fill out all fields");
 				} else {
-					$('#additional_warning').html("There are errors in your input. See red text");
+					$('#additional_warning').html("There are errors in your form. See red text and make sure your addresses are correct");
 				}
 				$('#additional_warning').fadeIn('fast');
 			}

@@ -108,10 +108,10 @@ app.post('/login', function(request, response) {
 			if (doc.password === hashedPassword) {
 				console.log("cool");
 			} else {
-				throw "Wrong email or password";
+				console.log( "Wrong email or password");
 			}
 		} else {
-			throw "Wrong email or password";
+			console.log( "Wrong email or password");
 		}
 	});
 	response.send();

@@ -12,6 +12,11 @@
   *zoom: 1;
 }
 
+#border {
+	border-style: dashed;
+	border-width: thin;
+	padding: 19px
+}
 .clearfix:before,
 .clearfix:after {
   display: table;

@@ -195,6 +195,7 @@ app.post('/recvtext', function(request, response) {
 					var distance = doc.distance;
 					var duration = Math.abs(d.getTime() - start.getTime()) / (1000 * 60);
 					var speed = distance/duration;
+					var weight = doc.weight;
 					var calories = ((duration * weight*(.0053)+.0083*speed^3)*7.2)/10;
 					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Congrats, you made it. You burned ' + calories + ' calories on that trip!</Sms></Response>';
 					doc.trips.push({start: start, finish: d, duration: duration, calories: calories});

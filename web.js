@@ -8,18 +8,13 @@ app.use(express.static(__dirname+'/public'));
 
 var check = require('validator').check,
 	sanitize = require('validator').sanitize
-
+	
+var client = new twilio.RestClient('ACfc2a602a223995a398db1ac614833449', 'cd620dabe507d714fd00e7f73fa626f1');
 
 var mongoUri = process.env.MONGOLAB_URI ||
 	process.env.MONGOHQ_URL ||
 	'mongodb://admin:mingchow@alex.mongohq.com:10085/app15350071';
 var mongo = require('mongodb');
-/*
-var db = mongo.Db.connect(mongoUri, function(error, databaseConnection) {
-	db = databaseConnection;
-});
-*/
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:mingchow@alex.mongohq.com:10085/app15350071');
 var db = mongoose.connection;
@@ -36,10 +31,8 @@ var userSchema = new mongoose.Schema({
 	intransit: Boolean,
 	    trips: [{start: Date, finish: Date, duration: String, calories: Number}]
 });
-
 var ObjectID = mongoose.Schema.ObjectID;
 var user = mongoose.model('user', userSchema);
-var client = new twilio.RestClient('ACfc2a602a223995a398db1ac614833449', 'cd620dabe507d714fd00e7f73fa626f1');
 
 app.configure(function() {
 	app.use(express.methodOverride());
@@ -80,7 +73,7 @@ app.post('/adduser.json', function(request, response, next) {
 	};
 	
 	var newuser = new user(newuser_data);
-	newuser.save( function(error, data) {
+	newuser.save(function(error, data) {
 		if (error) response.json(error);
 		else       response.json(data);
 	});
@@ -102,7 +95,7 @@ app.post('/sendtext', function(request, response) {
 		body: message
 	}, function (err, message) {
 		if (!err) response.send();
-		else	  console.log("Error");
+		else	  console.log("Error"); response.send();
 	});
 });
 
@@ -111,10 +104,23 @@ app.post('/recvtext', function(request, response) {
 		var from = sanitize(request.body.From).xss();
 		var d = new Date();
 		var n = d.toString();
-		var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Thanks</Sms></Response>';
-		console.log("Text received from " + from + " at " + n);
-		response.type('text/xml');
-		response.send(twiml);
+		var sender = user.findOne({ phone: from }, function (err, doc) {
+			if (!doc.intransit) {
+				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Good luck.</Sms></Response>';
+				console.log("Text received from " + from + " at " + n);
+				//doc.trips[start] = d;
+				doc.intransit = true;
+				response.type('text/xml');
+				response.send(twiml);
+			} else {
+				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Congrats you made it.</Sms></Response>';
+				console.log("Text received from " + from + " at " + n);
+				doc.intransit = false;
+				response.type('text/xml');
+				response.send(twiml);
+			}
+		});
+		
 	} else {
 		response.send('Invalid sender');
 	}

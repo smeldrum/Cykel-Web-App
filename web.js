@@ -70,7 +70,7 @@ app.post('/adduser.json', function(request, response, next) {
 	phone = phone.replace(/[^0-9]/g, '');
 
 	check(email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
-	/* secure phone number */
+	check(phone, 'Invalid phone number').len(10,11);
 	check(password, 'Password too short').len(8);
 	check(password, 'Passwords do not match').equals(password_confirm);
 	

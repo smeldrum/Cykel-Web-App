@@ -93,7 +93,7 @@ $(document).ready(function() {
 		$.ajax({
 			type: "POST",
 			url: "/adduser.json",
-			data: "email=" + $('#email').val() + "&phone=" + $('#phone') + "&password=" + $('#password').val() +
+			data: "email=" + $('#email').val() + "&phone=" + $('#phone').val() + "&password=" + $('#password').val() +
 					"&password_confirm=" + $('#password_confirm').val(),
 			success: function (msg) {
 				console.log("Success " + msg);

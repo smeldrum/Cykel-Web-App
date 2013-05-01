@@ -67,10 +67,10 @@ app.post('/adduser.json', function(request, response, next) {
 	var phone = sanitize(request.body.phone).xss();
 	var password = sanitize(request.body.password).xss();
 	var password_confirm = sanitize(request.body.password_confirm).xss();
-	//phone = phone.replace(/[^0-9]/g, '');
+	phone = phone.replace(/[^0-9]/g, '');
 
 	check(email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
-	//check(phone, 'Invalid phone number').len(10,11);
+	check(phone, 'Invalid phone number').len(10,11);
 	check(password, 'Password too short').len(8);
 	check(password, 'Passwords do not match').equals(password_confirm);
 	

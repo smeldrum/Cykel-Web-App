@@ -13,10 +13,6 @@ $(document).ready(function() {
 	
 	/* email format checker */
 	
-	$('#email').focus(function() {
-		
-	});
-	
 	$('#email').blur(function() {
 		if ($('#email').val().length < 1) {
 			$('#email_warning').fadeOut('fast');
@@ -24,11 +20,29 @@ $(document).ready(function() {
 			var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 			var emailAddress = $('#email').val();
 			if (!emailRegex.test(emailAddress) || emailAddress.length == 0) {
-				$('#email_warning').html("<span style='color: #FF0000;'>Must be format name&#64;domain.thing</span>");
+				$('#email_warning').html("<span style='color: #FF0000;'>Must be format john&#64;example.com</span>");
 				$('#email_warning').fadeIn('fast');
 			} else {
 				$('#email_warning').html("<span style='color: #00AA00;'>&#10003;</span>");
 				$('#email_warning').fadeIn('fast');
+			}
+		}
+	});
+	
+	/* phone format checker */
+	
+	$('#phone').blur(function() {
+		if ($('#phone').val().length < 1) {
+			$('#phone_warning').fadeOut('fast');
+		} else {
+			var cleanphone = $('#phone').val();
+			cleanphone = cleanphone.replace(/[^0-9]/g, '');
+			if (cleanphone.length != 10) {
+				$('#phone_warning').html("<span style='color: #FF0000;'>Phone number must be exactly 10 digits</span>");
+				$('#phone_warning').fadeIn('fast');
+			} else {
+				$('#phone_warning').html("<span style='color: #00AA00;'>&#10003;</span>");
+				$('#phone_warning').fadeIn('fast');
 			}
 		}
 	});

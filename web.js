@@ -63,14 +63,16 @@ app.all('/', function(request, response, next) {
 });
 
 app.post('/adduser.json', function(request, response, next) {
-	
 	var email = sanitize(request.body.email).xss();
+	var phone = sanitize(request.body.phone).xss();
 	var password = sanitize(request.body.password).xss();
 	var password_confirm = sanitize(request.body.password_confirm).xss();
-	
-	check(request.body.email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
-	check(request.body.password, 'Password too short').len(8, 128);
-	check(request.body.password, 'Passwords do not match').equals(request.body.password_confirm);
+	phone = phone.replace(/[^0-9]/g, '');
+
+	check(email, 'Improper email format').is(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+	check(phone, 'Phone number has wrong number of digits').len(10,10);
+	check(password, 'Password too short').len(8);
+	check(password, 'Passwords do not match').equals(password_confirm);
 	
 	var passHash = crypto.createHash('sha1');
 	var hashedPassword = passHash.digest('hex');
@@ -79,6 +81,7 @@ app.post('/adduser.json', function(request, response, next) {
 	var newuser_data = {
 		      email: email,
 		   password: hashedPassword,
+		      phone: phone,
 		     joined: dateJoined,
 		  intransit: false
 	};

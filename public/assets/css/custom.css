@@ -44,3 +44,12 @@
 #signin_form_warning {
 	margin-top: -20px;
 }
+
+#additionalinfo {
+	margin-top: 20px;
+}
+
+li.additional {
+	list-style-type: none;
+	margin-left: -25px;
+}

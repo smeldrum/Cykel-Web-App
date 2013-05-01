@@ -64,7 +64,7 @@ app.all('/', function(request, response, next) {
 	next();
 });
 
-app.post('/adduser.json', function(request, response, next) {
+app.post('/adduser', function(request, response, next) {
 	var email = sanitize(request.body.email).xss();
 	var phone = sanitize(request.body.phone).xss();
 	var password = sanitize(request.body.password).xss();
@@ -95,6 +95,29 @@ app.post('/adduser.json', function(request, response, next) {
 	response.send();
 });
 
+app.post('/addadditional', function(request, response) {
+	var email = sanitize(request.body.email).xss();
+	var home_address = sanitize(request.body.home_address).xss();
+	var work_address = sanitize(request.body.work_address).xss();
+	var weight = sanitize(request.body.weight).xss();
+	
+	var userlogin = user.findOne({email: email}, function(err, doc) {
+		if (doc) {
+			doc.home = home_address;
+			doc.work = work_address;
+			/* calculate distance and insert that too */
+			doc.weight = weight;
+			doc.save(function(err) {
+				if (err) console.log(err);
+			});
+			response.send();
+		} else {
+			console.log("Email not found");
+			response.send();
+		}
+	});
+});
+
 app.post('/login', function(request, response) {
 	var email = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
@@ -102,8 +125,6 @@ app.post('/login', function(request, response) {
 	
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
-			console.log("original " + doc.password);
-			console.log("input " + hashedPassword);
 			if (doc.password == hashedPassword) {
 				console.log("cool");
 			} else {

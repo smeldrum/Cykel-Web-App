@@ -89,13 +89,17 @@ $(document).ready(function() {
 		}
 	});
 	
+	/* create new account */
+	
 	$('#btn_signup').click(function() {
 		$.ajax({
 			type: "POST",
-			url: "/adduser.json",
+			url: "/adduser",
 			data: "email=" + $('#email').val() + "&phone=" + $('#phone').val() + "&password=" + $('#password').val() +
 					"&password_confirm=" + $('#password_confirm').val(),
 			success: function (msg) {
+				localStorage["cykelSession"] = $('#email').val();
+				window.location.replace("additionalinfo.html");
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				if ($('#email').val().length == 0 || $('#password').val().length == 0
@@ -108,6 +112,8 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	/* log into existing account */
 	
 	$('#btn_submit_signin').click(function() {
 		$.ajax({
@@ -122,4 +128,23 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	/* home address format checker */
+	
+	/* add additional required info */
+	
+	$('#btn_submit_additional').click(function() {
+		$.ajax({
+			type: "POST",
+			url: "/addadditional",
+			data: "home_address=" + $('#home_address').val() + "&work_address=" + $('#work_address').val() + "&weight=" + $('#weight').val() + "&email=" + localStorage["cykelSession"],
+			success: function(msg) {
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				/* handle errors here */
+			}
+		});
+	});
+	
+	
 });

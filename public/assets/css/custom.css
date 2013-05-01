@@ -23,7 +23,8 @@
 	background-color: #00AA00;
 }
 
-#form_warning, #signin_form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning {
+#form_warning, #signin_form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning, #weight_warning, #additional_warning {
+	/*display: none;*/
 	display: none;
 	color: #FF0000;
 	font-weight: bold;
@@ -33,6 +34,12 @@
 #email_warning, #phone_warning, #password_warning, #password_conf_warning {
 	position: absolute;
 	margin-left: 460px;
+	margin-top: -36px;
+}
+
+#weight_warning {
+	position: absolute;
+	margin-left: 230px;
 	margin-top: -36px;
 }
 
@@ -47,6 +54,11 @@
 
 #additionalinfo {
 	margin-top: 20px;
+}
+
+#additional_warning {
+	margin-top: -10px;
+	margin-bottom: -20px;
 }
 
 li.additional {

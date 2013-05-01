@@ -129,7 +129,20 @@ $(document).ready(function() {
 		});
 	});
 	
-	/* home address format checker */
+	/* weight format checker */
+	
+	$('#weight').keyup(function() {
+		if ($('#weight').val().length > 0) {
+			var weightregex = new RegExp(/^[0-9]+$/);
+			if (!weightregex.test($('#weight').val())) {
+				console.log("hey");
+				$('#weight_warning').html("<span style='color: #FF0000'>Weight can only contain numbers</span>");
+				$('#weight_warning').fadeIn('fast');
+			}
+		} else {
+			$('#weight_warning').fadeOut('fast');
+		}
+	});
 	
 	/* add additional required info */
 	
@@ -139,9 +152,15 @@ $(document).ready(function() {
 			url: "/addadditional",
 			data: "home_address=" + $('#home_address').val() + "&work_address=" + $('#work_address').val() + "&weight=" + $('#weight').val() + "&email=" + localStorage["cykelSession"],
 			success: function(msg) {
+				window.location.replace("registrationcomplete.html");
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				/* handle errors here */
+				if ($('#home_address').val().length == 0 || $('#work_address').val().length == 0 || $('#weight').val().length == 0) {
+					$('#additional_warning').html("Please fill out all fields");
+				} else {
+					$('#additional_warning').html("There are errors in your input. See red text");
+				}
+				$('#additional_warning').fadeIn('fast');
 			}
 		});
 	});
@@ -157,7 +176,7 @@ $(document).ready(function() {
 				window.location.replace("index.html");
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				/* handle errors here */
+				console.log("Error deleting account");
 			}
 		});
 	});

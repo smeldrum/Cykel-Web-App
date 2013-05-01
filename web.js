@@ -103,6 +103,11 @@ app.post('/addadditional', function(request, response) {
 	var work_address = sanitize(request.body.work_address).xss();
 	var weight = sanitize(request.body.weight).xss();
 	
+	check(home_address, 'Home address blank').len(1);
+	check(work_address, 'Work address blank').len(1);
+	check(weight, 'Weight is blank').len(1);
+	check(weight, 'Weight has non-numbers').is(/[0-9]+$/);
+	
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
 			doc.home = home_address;

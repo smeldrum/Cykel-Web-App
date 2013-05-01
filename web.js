@@ -125,16 +125,18 @@ app.post('/login', function(request, response) {
 	
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
-			if (doc.password == hashedPassword) {
+			if (doc.password === hashedPassword) {
 				console.log("cool");
+				response.send();
 			} else {
-				console.log( "Wrong email or password");
+				response.writeHead(400);
+				response.send();
 			}
 		} else {
-			console.log( "Wrong email or password");
+			response.writeHead(400);
+			response.send();
 		}
 	});
-	response.send();
 });
 
 app.get('/userdata.json', function(request, response) {

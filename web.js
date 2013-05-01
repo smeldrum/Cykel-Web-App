@@ -76,8 +76,7 @@ app.post('/adduser.json', function(request, response, next) {
 	check(password, 'Password too short').len(8);
 	check(password, 'Passwords do not match').equals(password_confirm);
 	
-	var passHash = crypto.createHash('sha1');
-	var hashedPassword = passHash.digest('hex');
+	var hashedPassword = crypto.createHash('sha1').update('password').digest('hex');
 	phone = "+1" + phone;
 	var dateJoined = new Date();
 	
@@ -99,16 +98,17 @@ app.post('/adduser.json', function(request, response, next) {
 
 app.post('/login', function(request, response) {
 	var email = sanitize(request.body.email).xss();
-	var password = sanitize(request.body.phone).xss();
-	var passHash = crypto.createHash('sha1');
-	var hashedPassword = passHash.digest('hex');
+	var password = sanitize(request.body.password).xss();
+	var hashedPassword = crypto.createHash('sha1').update('password').digest('hex');
 	
-	var user = user.findOne({email: email}, function(err, doc) {
+	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
-			if (doc.password != hashedPassword) {
-				throw "Wrong email or password";
+			console.log("original " + doc.password);
+			console.log("input " + hashedPassword);
+			if (doc.password === hashedPassword) {
+				console.log("cool");
 			} else {
-				document.write("cool");
+				throw "Wrong email or password";
 			}
 		} else {
 			throw "Wrong email or password";

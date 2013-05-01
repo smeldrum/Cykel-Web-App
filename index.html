@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="public/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="public/assets/css/custom.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -46,19 +46,19 @@
         margin-top: 28px;
       }
     </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="public/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="assets/js/html5shiv.js"></script>
+      <script src="public/assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="public/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="public/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="public/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="public/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="public/assets/ico/favicon.png">
   </head>
 
   <body>
@@ -76,11 +76,12 @@
       <hr>
       
       <div class="jumbotron" id="signin">
-      	<form id="form_signin">
+        <div id="signin_form_warning">h</div>
+      	<form id="form_signin" action="#">
           	<fieldset>
           		<ul>
-          			<li class="register"><input type="text" placeholder="Email" /></li>
-          			<li class="register"><input type="password" placeholder="Password" /></li>
+          			<li class="register"><input type="text" id="signin_email" placeholder="Email" /></li>
+          			<li class="register"><input type="password" id="signin_password" placeholder="Password" /></li>
           			<li class="register"><button type ="submit" class="btn btn-info" id="btn_submit_signin">Sign In</button></li>
           		</ul>
           	</fieldset>
@@ -96,7 +97,8 @@
         <form id="register" action="#">
         	<fieldset>
         		<ul>
-        			<li class="register"><div><input type="text" id="email" placeholder="Email" /><div id="email_warning">Must be format name&#64;domain.thing</div></div></li>
+        			<li class="register"><div><input type="text" id="email" placeholder="Email" /><div id="email_warning">Must be format john&#64;example.com</div></div></li>
+        			<li class="register"><div><input type="text" id="phone" placeholder="Phone #" /><div id="phone_warning">Must be format name&#64;domain.thing</div></div></li>
         			<li class="register"><div><input type="password" id="password" placeholder="Password" /><div id="password_warning">Must be at least 8 characters</div></div></li>
         			<li class="register"><div><input type="password" id="password_confirm" placeholder="Confirm Password" /><div id="password_conf_warning"></div></div></li>
         			<li class="register"><button type ="submit" class="btn btn-success" id="btn_signup">Sign Up</button></li>
@@ -139,20 +141,20 @@
 
     </div> <!-- /container -->
 
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap-alert.js"></script>
-    <script src="assets/js/bootstrap-modal.js"></script>
-    <script src="assets/js/bootstrap-dropdown.js"></script>
-    <script src="assets/js/bootstrap-scrollspy.js"></script>
-    <script src="assets/js/bootstrap-tab.js"></script>
-    <script src="assets/js/bootstrap-tooltip.js"></script>
-    <script src="assets/js/bootstrap-popover.js"></script>
-    <script src="assets/js/bootstrap-button.js"></script>
-    <script src="assets/js/bootstrap-collapse.js"></script>
-    <script src="assets/js/bootstrap-carousel.js"></script>
-    <script src="assets/js/bootstrap-typeahead.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="public/assets/js/jquery.js"></script>
+    <script src="public/assets/js/bootstrap-transition.js"></script>
+    <script src="public/assets/js/bootstrap-alert.js"></script>
+    <script src="public/assets/js/bootstrap-modal.js"></script>
+    <script src="public/assets/js/bootstrap-dropdown.js"></script>
+    <script src="public/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="public/assets/js/bootstrap-tab.js"></script>
+    <script src="public/assets/js/bootstrap-tooltip.js"></script>
+    <script src="public/assets/js/bootstrap-popover.js"></script>
+    <script src="public/assets/js/bootstrap-button.js"></script>
+    <script src="public/assets/js/bootstrap-collapse.js"></script>
+    <script src="public/assets/js/bootstrap-carousel.js"></script>
+    <script src="public/assets/js/bootstrap-typeahead.js"></script>
+    <script src="public/assets/js/custom.js"></script>
 
   </body>
 </html>

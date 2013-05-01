@@ -96,7 +96,6 @@ $(document).ready(function() {
 			data: "email=" + $('#email').val() + "&phone=" + $('#phone').val() + "&password=" + $('#password').val() +
 					"&password_confirm=" + $('#password_confirm').val(),
 			success: function (msg) {
-				console.log("Success " + msg);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				if ($('#email').val().length == 0 || $('#password').val().length == 0
@@ -116,7 +115,6 @@ $(document).ready(function() {
 			url: "/login",
 			data: "email=" + $('#signin_email').val() + "&password=" + $('#signin_password').val(),
 			success: function(msg) {
-				console.log("Success " + msg);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				$('#signin_form_warning').text("Wrong username and/or password");

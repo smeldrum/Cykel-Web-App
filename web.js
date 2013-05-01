@@ -76,7 +76,7 @@ app.post('/adduser.json', function(request, response, next) {
 	check(password, 'Password too short').len(8);
 	check(password, 'Passwords do not match').equals(password_confirm);
 	
-	var hashedPassword = crypto.createHash('sha1').update('password').digest('hex');
+	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	phone = "+1" + phone;
 	var dateJoined = new Date();
 	
@@ -90,10 +90,7 @@ app.post('/adduser.json', function(request, response, next) {
 	
 	var newuser = new user(newuser_data);
 	newuser.save(function(error, data) {
-/*
-		if (error) response.json(error);
-		else       response.json(data);
-*/
+
 	});
 	response.send();
 });
@@ -101,7 +98,7 @@ app.post('/adduser.json', function(request, response, next) {
 app.post('/login', function(request, response) {
 	var email = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
-	var hashedPassword = crypto.createHash('sha1').update('password').digest('hex');
+	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {

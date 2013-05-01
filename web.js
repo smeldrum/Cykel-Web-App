@@ -178,7 +178,7 @@ app.post('/recvtext', function(request, response) {
 		var sender = user.findOne({ phone: from }, function (err, doc) {
 			if (doc) {
 				if (!doc.intransit) {
-					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Good luck.</Sms></Response>';
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Thanks. Good luck on your trip!</Sms></Response>';
 					var newtrip = new trip;
 					newtrip.start = d;
 					doc.trips.push({start: d, finish: null, duration: 0, calories: 0});
@@ -189,12 +189,15 @@ app.post('/recvtext', function(request, response) {
 					response.type('text/xml');
 					response.send(twiml);
 				} else {
-					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Congrats you made it.</Sms></Response>';
 					doc.intransit = false;
 					var start = doc.trips[doc.trips.length-1].start;
 					doc.trips.pop();
-					var duration = Math.ceil(Math.abs(d.getTime() - start.getTime()) / (1000 * 60));
-					doc.trips.push({start: start, finish: d, duration: duration, calories: 0});
+					var distance = doc.distance;
+					var duration = Math.abs(d.getTime() - start.getTime()) / (1000 * 60);
+					var speed = distance/duration;
+					var calories = ((duration * weight*(.0053)+.0083*speed^3)*7.2)/10;
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Congrats, you made it. You burned ' + calories + ' calories on that trip!</Sms></Response>';
+					doc.trips.push({start: start, finish: d, duration: duration, calories: calories});
 					doc.save(function(err) {
 						if (err) console.log(err);
 					});

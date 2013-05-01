@@ -119,30 +119,31 @@ app.post('/recvtext', function(request, response) {
 		var intransit;
 
 		var sender = user.findOne({ phone: from }, function (err, doc) {
-			if (!doc.intransit) {
-				console.log("user starting trip");
-				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Good luck.</Sms></Response>';
-				var newtrip = new trip;
-				newtrip.start = d;
-				doc.trips.push({start: d, finish: null, duration: 0, calories: 0});
-				doc.intransit = true;
-				doc.save(function(err) {
-					if (err) console.log(err);
-				});
-				response.type('text/xml');
-				response.send(twiml);
-			} else {
-				console.log("user ending trip");
-				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Congrats you made it.</Sms></Response>';
-				doc.intransit = false;
-				var start = doc.trips[doc.trips.length-1].start;
-				doc.trips.pop();
-				doc.trips.push({start: start, finish: d, duration: 0, calories: 0});
-				doc.save(function(err) {
-					if (err) console.log(err);
-				});
-				response.type('text/xml');
-				response.send(twiml);
+			if (doc) {
+				if (!doc.intransit) {
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Good luck.</Sms></Response>';
+					var newtrip = new trip;
+					newtrip.start = d;
+					doc.trips.push({start: d, finish: null, duration: 0, calories: 0});
+					doc.intransit = true;
+					doc.save(function(err) {
+						if (err) console.log(err);
+					});
+					response.type('text/xml');
+					response.send(twiml);
+				} else {
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Congrats you made it.</Sms></Response>';
+					doc.intransit = false;
+					var start = doc.trips[doc.trips.length-1].start;
+					doc.trips.pop();
+					var duration = Math.ceil(Math.abs(d.getTime() - start.getTime()) / (1000 * 60));
+					doc.trips.push({start: start, finish: d, duration: duration, calories: 0});
+					doc.save(function(err) {
+						if (err) console.log(err);
+					});
+					response.type('text/xml');
+					response.send(twiml);
+				}
 			}
 		});		
 	} else {

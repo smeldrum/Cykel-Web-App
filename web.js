@@ -21,6 +21,15 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function callback(){});
 
+var tripSchema = new mongoose.Schema( {
+	   start: Date,
+	  finish: Date,
+	duration: Number,
+	calories: Number
+});
+
+var trip = mongoose.model('trip', tripSchema);
+
 var userSchema = new mongoose.Schema({
 	    email: String,
 	 password: String,
@@ -29,8 +38,10 @@ var userSchema = new mongoose.Schema({
 	     work: String,
 	   joined: Date,
 	intransit: Boolean,
-	    trips: [{start: Date, finish: Date, duration: String, calories: Number}]
+	     trips: []
 });
+
+
 var ObjectID = mongoose.Schema.ObjectID;
 var user = mongoose.model('user', userSchema);
 
@@ -104,23 +115,33 @@ app.post('/recvtext', function(request, response) {
 		var from = sanitize(request.body.From).xss();
 		var d = new Date();
 		var n = d.toString();
+		var intransit;
+
 		var sender = user.findOne({ phone: from }, function (err, doc) {
 			if (!doc.intransit) {
 				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Good luck.</Sms></Response>';
-				console.log("Text received from " + from + " at " + n);
-				//doc.trips[start] = d;
+				var newtrip = new trip;
+				newtrip.start = d;
+				doc.trips.push({start: d, finish: null, duration: 0, calories: 0});
 				doc.intransit = true;
+				doc.save(function(err) {
+					if (err) console.log(err);
+				});
 				response.type('text/xml');
 				response.send(twiml);
 			} else {
 				var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Received at ' + n + '. Congrats you made it.</Sms></Response>';
-				console.log("Text received from " + from + " at " + n);
 				doc.intransit = false;
+				var start = doc.trips[doc.trips.length-1].start;
+				doc.trips.pop();
+				doc.trips.push({start: start, finish: d, duration: 0, calories: 0});
+				doc.save(function(err) {
+					if (err) console.log(err);
+				});
 				response.type('text/xml');
 				response.send(twiml);
 			}
-		});
-		
+		});		
 	} else {
 		response.send('Invalid sender');
 	}

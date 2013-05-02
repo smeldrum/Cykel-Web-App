@@ -4,6 +4,7 @@ var directionsService = new google.maps.DirectionsService();
 
 function getEmail(){
 	userEmail = readCookie("email");
+	console.log(userEmail);
 	if(userEmail==null){
 		window.location.replace("index.html");
 	}

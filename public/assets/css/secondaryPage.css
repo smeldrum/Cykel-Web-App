@@ -266,7 +266,7 @@
 	#eva{
 		float:left;
 		padding-top: 80px;
-   		padding-left:18%;
+   		padding-left:16%;
   	    width: 20%;
    		height: 675px;
    		clear:left;
@@ -278,7 +278,7 @@
 		width: 29%;
 		height: 675px;
 		overflow: auto;
-		padding-right: 25%;
+		padding-right: 15%;
 	}
 	table{
 		width:100%;

@@ -2,14 +2,74 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
 
+function renderStats(){
+  
+	$('.container.marketing').before('<div id="graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>');
+	
+	//$('.container.marketing').before('<div id="stats" width="300" height="200"></div>');
+	initGraph();
+}
+function initGraph(){
+	
+	 var chart1;
+ $(document).ready(function () {
+     chart1 = new Highcharts.Chart({
+         chart: {
+             renderTo: 'graph',
+             type: 'line',
+       		 marginRight: 130,
+             marginBottom: 25
+            },
+            title: {
+                text: 'Cumulative Calories Burned',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Your Personal Information',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Calories'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Total Calories',
+                data: [100, 150, 230, 305, 376]
+            }]
+     });
+ });
+}
+
+
 function renderMap(){
 	$('.container.marketing').before('<div id="map_canvas" width="600" height="200"></div>');
 	$('.container.marketing').before('<div id="directions" width="300" height="200"></div>');
-	initialize();
+	initMap();
 }
 //initialize() sets the google map canvas, centers it, and calls 
 //functions to set markers and create polyline
-function initialize(){
+function initMap(){
   console.log("CALLED");
   mapOptions = {
   center: new google.maps.LatLng(42.330497742, -71.095794678),
@@ -28,7 +88,7 @@ function initialize(){
   if (request == null) {
  		return "Error creating request object --Ajax not supported?";	  		
   }	
-  homeandwork();
+ // homeandwork();
   direct();
 }
 
@@ -51,7 +111,8 @@ function direct(){
  	}
  });
 }
-
+//homeandwork is meant to retrieve the user's home and work data from mongo to
+//be used by direct() as start and end points
 function homeandwork(){
 	$.getJSON('/userdata.json', function(data) {
   		var home;

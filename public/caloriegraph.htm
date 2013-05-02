@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript">
+$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Cumulative Calories Burned',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Your Personal Information',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Calories'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Total Calories',
+                data: [100, 150, 230, 305, 376]
+            }]
+        });
+    });
+ console.log("SWAGGER");
+/*(function(){
+	$.getJSON("/userdata.json",{
+		tags: "calories",
+		tagmode: "any",
+		format:"json"
+	})
+	.done(function(data){
+		console.log("skmdjvn");
+	});
+})();
+*/
+$.getJSON("/userdata.json", function(json){
+	console.log("sdfvf");
+});	
+  
+/*$.ajax({
+	type: "POST",
+	url: "/userdata.json",
+	success: function(data){
+		console.log("MKSUDJ");
+	}
+});*/
+/*$.post("/userdata.json", function(data){
+	//alert(data);
+});*/
+		</script>
+	</head>
+	<body>
+<script src="assets/Highcharts-3/js/highcharts.js"></script>
+<script src="assets/Highcharts-3/js/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>

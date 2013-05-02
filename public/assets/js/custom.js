@@ -121,6 +121,9 @@ $(document).ready(function() {
 			url: "/login",
 			data: "email=" + $('#signin_email').val() + "&password=" + $('#signin_password').val(),
 			success: function(msg) {
+				var cookieString = "email="+$('#signin_email').val()+";";
+				document.cookie=cookieString;
+				window.location.replace("secondaryPage.html");
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				$('#signin_form_warning').text("Wrong username and/or password");

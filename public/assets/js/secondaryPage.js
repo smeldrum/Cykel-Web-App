@@ -2,6 +2,26 @@ var directionsDisplay;
 var lastrendered;
 var directionsService = new google.maps.DirectionsService();
 
+function getEmail(){
+	userEmail = readCookie("email");
+	if(userEmail==null){
+		window.location.replace(index.html);
+	}
+	
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+
 function cleardiv(name){
 	switch(name){
 		case "map":
@@ -33,8 +53,14 @@ function renderAcc(){
 function initAccInfo(){
  //$('#eva').append("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").fadeIn("slow");
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
- $('#info').append("<h2>Well Hello Kelly...</h2><hr>");
- $('#info').append("<table><tr><th>Home: </th><td>Tufts University, 419 Boston Avenue, Medford, MA, United States</td></tr><tr><th>Work: </th><td> Fresh Pond Parkway, Cambridge, MA</td></tr><tr><th>Weight: </th><td> 346 lbs</td></tr><tr><th>Email: </th><td> fakey.mcfake@hotmail.com</td></tr></table>");
+ 	var emailRequest = $.ajax({
+  url: "/userdata.json",
+  type: "POST",
+  data: {email : userEmail},
+  dataType: "json"
+});
+	var userData = JSON.parse(emailRequest);
+ $('#info').append("<table><tr><th>Home: </th><td>"+userData['home']+"</td></tr><tr><th>Work: </th><td>"+userData['work']+"</td></tr><tr><th>Weight: </th><td>"+userData['weight']+"lbs</td></tr><tr><th>Email: </th><td>"+userData['email']+"</td></tr></table>");
 }
 
 function renderStats(){
@@ -148,8 +174,8 @@ function direct(){
  directionsDisplay = new google.maps.DirectionsRenderer();
  directionsDisplay.setMap(map);
  directionsDisplay.setPanel(document.getElementById("directions"));
- var start = "Tufts University, 419 Boston Avenue, Medford, MA, United States";
- var end = "Fresh Pond Parkway, Cambridge, MA";
+ var start = userData["home"];
+ var end = userData["work"];
  var request = {
     origin:start,
     destination:end,

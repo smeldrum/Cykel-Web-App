@@ -1,6 +1,24 @@
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
+function getEmail(){
+	userEmail = readCookie("email");
+	if(userEmail==null){
+		window.location.replace(index.html);
+	}
+	
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
 
 function renderMap(){
 	$('.row').append('<div id="map_canvas" width="600" height="200"></div>');
@@ -34,13 +52,21 @@ function initialize(){
   }	
   direct();
 }
-
 function direct(){
+	var emailRequest = $.ajax({
+  url: "/userdata.json",
+  type: "POST",
+  data: {email : userEmail},
+  dataType: "json"
+});
+	var userData = JSON.parse(emailRequest);
  directionsDisplay = new google.maps.DirectionsRenderer();
  directionsDisplay.setMap(map);
  directionsDisplay.setPanel(document.getElementById("directions"));
- var start = "Tufts University, 419 Boston Avenue, Medford, MA, United States";
- var end = "Fresh Pond Parkway, Cambridge, MA";
+
+ 
+ var start = userData["home"];
+ var end = userData["work"];
  var request = {
     origin:start,
     destination:end,

@@ -218,7 +218,7 @@ app.get('/userdata.json', function(request, response) {
 			response.writeHead(200);
 			response.send(results);
 		} else {
-			response.writeHead(400:
+			response.writeHead(400);
 			response.send();
 		}
 	});

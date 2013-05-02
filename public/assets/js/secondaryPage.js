@@ -1,18 +1,36 @@
 var directionsDisplay;
+var lastrendered;
 var directionsService = new google.maps.DirectionsService();
 
-
+function cleardiv(name){
+	switch(name){
+		case "map":
+		    $('#map_canvas').remove();
+		    $('#directions').remove();
+			break;
+		case "stat":
+			$('#graph').remove();
+		    $('#stats').remove();
+			break;
+		case "account":
+			break;
+	}
+}
 function renderStats(){
-  
+    if(lastrendered!=null){
+    	$('#' + lastrendered).attr('class', null);   
+    	cleardiv(lastrendered);
+    }
+    $('#stat').attr('class', 'active'); 
 	$('.container.marketing').before('<div id="graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>');
-	
+	lastrendered = "stat";
 	//$('.container.marketing').before('<div id="stats" width="300" height="200"></div>');
 	initGraph();
 }
 function initGraph(){
 	
 	 var chart1;
- $(document).ready(function () {
+     $(document).ready(function () {
      chart1 = new Highcharts.Chart({
          chart: {
              renderTo: 'graph',
@@ -63,8 +81,14 @@ function initGraph(){
 
 
 function renderMap(){
+ 	if(lastrendered!=null){
+ 		$('#' + lastrendered).attr('class', null);   
+ 		cleardiv(lastrendered);
+ 	}
+    $('#map').attr('class', 'active'); 
 	$('.container.marketing').before('<div id="map_canvas" width="600" height="200"></div>');
 	$('.container.marketing').before('<div id="directions" width="300" height="200"></div>');
+	lastrendered = "map";
 	initMap();
 }
 //initialize() sets the google map canvas, centers it, and calls 

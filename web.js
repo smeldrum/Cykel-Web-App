@@ -214,7 +214,13 @@ app.get('/userdata.json', function(request, response) {
 	response.set('Content-Type', 'text/json');
 	var email = sanitize(request.query["email"]).xss();
 	user.find({ email: email}, function(err, results) {
-		response.send(results);
+		if (!err) {
+			response.writeHead(200);
+			response.send(results);
+		} else {
+			response.writeHead(400:
+			response.send();
+		}
 	});
 });
 

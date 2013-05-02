@@ -42,6 +42,8 @@ var userSchema = new mongoose.Schema({
 	   weight: Number,
 	   joined: Date,
 	intransit: Boolean,
+	  deleted: Boolean,
+  dateDeleted: Date,
 	    trips: []
 });
 
@@ -87,7 +89,8 @@ app.post('/adduser', function(request, response, next) {
 		   password: hashedPassword,
 		      phone: phone,
 		     joined: dateJoined,
-		  intransit: false
+		  intransit: false,
+		    deleted: false
 	};
 	
 	var newuser = new user(newuser_data);
@@ -141,9 +144,17 @@ app.post('/login', function(request, response) {
 	
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
-			if (doc.password === hashedPassword) {
+			if (doc.password === hashedPassword && !doc.deleted) {
 				console.log("cool");
 				response.send();
+			} else if (doc.deleted) {
+				var d = new Date();
+				var diff = Math.abs(d.getTime() - doc.dateDeleted.getTime());
+				if (diff > 30) {
+					doc.remove();
+					response.writeHead(400);
+					response.send();
+				}
 			} else {
 				response.writeHead(400);
 				response.send();
@@ -159,8 +170,29 @@ app.post('/deleteaccount', function(request, response) {
 	var email = sanitize(request.body.email).xss();
 	user.findOne({email: email}, function(err, results) {
 		if (!err) {
-			results.remove();
+			var d = new Date();
+			results.deleted = true;
+			results.dateDeleted = d;
+			results.save(function (err) {
+				if (err) console.log(err);
+			});
 			response.writeHead(200);
+			response.send();
+		} else {
+			response.writeHead(400);
+			response.send();
+		}
+	});
+});
+
+app.post('/resurrect', function(request, response) {
+	var email = sanitize(request.body.email).xss();
+	user.findOne({email: email}, function(err, results) {
+		if (!err) {
+			results.deleted = false;
+			results.save(function (err) {
+				if (err) console.log(err);
+			});
 			response.send();
 		} else {
 			response.writeHead(400);

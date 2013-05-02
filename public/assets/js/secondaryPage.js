@@ -54,14 +54,17 @@ function renderAcc(){
 function initAccInfo(){
  //$('#eva').append("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").fadeIn("slow");
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
- 	var emailRequest = $.ajax({
+ var data = '';
+ 	$.ajax({
   url: "/userdata.json",
   type: "GET",
   data: {email : userEmail},
-  dataType: "json"
+  dataType: "json",
+  success: function(data) {
+  	console.log(data);
+  	 $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table>");
+  }
 });
-	var userData = JSON.parse(emailRequest);
- $('#info').append("<table><tr><th>Home: </th><td>"+userData['home']+"</td></tr><tr><th>Work: </th><td>"+userData['work']+"</td></tr><tr><th>Weight: </th><td>"+userData['weight']+"lbs</td></tr><tr><th>Email: </th><td>"+userData['email']+"</td></tr></table>");
 }
 
 function renderStats(){

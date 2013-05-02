@@ -27,7 +27,7 @@
  <!-- <script type="text/javascript" src="mainscreen.js"></script> -->
   </head>
 
-  <body>
+  <body onload = "getEmail()">
   <script src="assets/Highcharts-3/js/highcharts.js"></script>
   <script src="assets/Highcharts-3/js/modules/exporting.js"></script>
     <!-- NAVBAR
@@ -50,6 +50,7 @@
                 <li id=map><a href="#" onclick = "renderMap()">Map</a></li>
                 <li id=stat><a href="#" onclick = "renderStats()">Statistics</a></li>
                 <li id=account><a href="#" onclick = "renderAcc()">Account</a></li>
+              
               </ul>
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->

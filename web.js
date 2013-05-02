@@ -211,11 +211,10 @@ app.post('/resurrect', function(request, response) {
 });
 
 app.get('/userdata.json', function(request, response) {
-	response.set('Content-Type', 'text/json');
 	var email = sanitize(request.query["email"]).xss();
 	user.find({ email: email}, function(err, results) {
 		if (!err) {
-			response.writeHead(200);
+			response.set('Content-Type', 'text/json');
 			response.send(results);
 		} else {
 			response.writeHead(400);

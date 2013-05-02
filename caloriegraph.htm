@@ -63,17 +63,16 @@ $(function () {
 	});
 })();
 */
-$.getJSON("/userdata.json", function(json){
-	console.log("sdfvf");
-});	
+
   
-/*$.ajax({
-	type: "POST",
+$.ajax({
+	type: "GET",
 	url: "/userdata.json",
+	data: { email: }
 	success: function(data){
 		console.log("MKSUDJ");
 	}
-});*/
+});
 /*$.post("/userdata.json", function(data){
 	//alert(data);
 });*/

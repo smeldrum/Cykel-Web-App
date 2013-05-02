@@ -135,9 +135,13 @@ $(document).ready(function() {
 		if ($('#weight').val().length > 0) {
 			var weightregex = new RegExp(/^[0-9]+$/);
 			if (!weightregex.test($('#weight').val())) {
-				console.log("hey");
 				$('#weight_warning').html("<span style='color: #FF0000'>Weight can only contain numbers</span>");
 				$('#weight_warning').fadeIn('fast');
+			} else if (parseInt($('#weight').val()) >= 1000) {
+				$('#weight_warning').html("<span style='color: #FF0000'>No offense, but at that weight I'm not sure this website is really your thing…</span>");
+				$('#weight_warning').fadeIn('fast');
+			} else if (parseInt($('#weight').val()) < 1000) {
+				$('#weight_warning').fadeOut('fast');
 			}
 		} else {
 			$('#weight_warning').fadeOut('fast');

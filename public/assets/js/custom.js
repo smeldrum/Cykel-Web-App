@@ -165,18 +165,19 @@ $(document).ready(function() {
 		});
 	});
 	
-	/* cancel additional info */
-	
-	$('#btn_cancel_additional').click(function() {
+	/* recover account */
+	$('#btn_submit_recover').click(function() {
+		console.log("clicked");
 		$.ajax({
 			type: "POST",
-			url: "/deleteaccount",
-			data: "email=" + localStorage["cykelSession"],
+			url: "/resurrect",
+			data: "email=" + $('#email').val() + "&password=" + $('#password').val(),
 			success: function(msg) {
 				window.location.replace("index.html");
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log("Error deleting account");
+				$('#recover_warning').html("Error recovering account. You must have deleted your account in the last 30 days to resurrect it.");
+				$('#recover_warning').fadeIn('fast');
 			}
 		});
 	});

@@ -23,8 +23,7 @@
 	background-color: #00AA00;
 }
 
-#form_warning, #signin_form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning, #weight_warning, #additional_warning {
-	/*display: none;*/
+#form_warning, #signin_form_warning, #phone_warning, #email_warning, #password_warning, #password_conf_warning, #weight_warning, #additional_warning, #recover_warning {
 	display: none;
 	color: #FF0000;
 	font-weight: bold;
@@ -52,16 +51,16 @@
 	margin-top: -20px;
 }
 
-#additionalinfo {
+#additionalinfo, #recover {
 	margin-top: 20px;
 }
 
-#additional_warning {
+#additional_warning, #recover_warning {
 	margin-top: -10px;
 	margin-bottom: -20px;
 }
 
-li.additional {
+li.additional, li.recover {
 	list-style-type: none;
 	margin-left: -25px;
 }

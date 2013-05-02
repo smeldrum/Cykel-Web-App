@@ -168,8 +168,10 @@ app.post('/login', function(request, response) {
 
 app.post('/deleteaccount', function(request, response) {
 	var email = sanitize(request.body.email).xss();
+	var password = sanitize(request.body.password).xss();
+	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	user.findOne({email: email}, function(err, results) {
-		if (!err) {
+		if (!err && hashedPassword === results.password) {
 			var d = new Date();
 			results.deleted = true;
 			results.dateDeleted = d;
@@ -187,13 +189,20 @@ app.post('/deleteaccount', function(request, response) {
 
 app.post('/resurrect', function(request, response) {
 	var email = sanitize(request.body.email).xss();
+	var password = sanitize(request.body.password).xss();
+	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	user.findOne({email: email}, function(err, results) {
-		if (!err) {
-			results.deleted = false;
-			results.save(function (err) {
-				if (err) console.log(err);
-			});
-			response.send();
+		if (results) {
+			if (!err && hashedPassword === results.password && results.deleted) {
+				results.deleted = false;
+				results.save(function (err) {
+					if (err) console.log(err);
+				});
+				response.send();
+			} else {
+				response.writeHead(400);
+				response.send();
+			}
 		} else {
 			response.writeHead(400);
 			response.send();

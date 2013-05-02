@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Cykel</title>
+    <title>Sticky footer &middot; Twitter Bootstrap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -49,6 +49,8 @@
         }
       }
 
+
+
       /* Custom page CSS
       -------------------------------------------------- */
       /* Not required for template or sticky footer method. */
@@ -79,29 +81,28 @@
 
   <body>
 
+
     <!-- Part 1: Wrap all page content here -->
     <div id="wrap">
 
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <p class="lead">Thanks. We've registered the email address <span id="newemail"></span> in our records.
-          <script type="text/javascript">document.getElementById("newemail").innerHTML=localStorage["cykelSession"];</script>
-          <h1>A few more things...</h1>
+          <h1>Recover Your Deleted Account</h1>
         </div>
-        <p class="lead">We need to know your home address and work address. Also your weight.</p>
-        <p>Don't worry, none of this information will be shared and is very secure.</p>
-        <div id = "additional_warning"></div>
-        <form id="additionalinfo">
+        <p class="lead">You can recover any accounts deleted within the last 30 days.</p>
+        <p>Just enter your old email and password and it'll be reset.</p>
+        <div id = "recover_warning"></div>
+         <form id="recover">
           	<fieldset>
           		<ul>
-          			<li class="additional"><input type="text" id="home_address" placeholder="Home Address" /></li>
-          			<li class="additional"><input type="text" id="work_address" placeholder="Work Address" /></li>
-          			<li class="additional"><div><input type="text" id="weight" placeholder="Weight (in pounds)" /><div id="weight_warning"></div></li>
-          			<li class="additional"><button type ="button" class="btn btn-info" id="btn_submit_additional">Submit</button></li>
+          			<li class="recover"><input type="text" id="email" placeholder="Email" /></li>
+          			<li class="recover"><input type="password" id="password" placeholder="Password" /></li>
+          			<li class="recover"><button type ="button" class="btn btn-info" id="btn_submit_recover">Recover Account</button></li>
           		</ul>
           	</fieldset>
           </form>
+
       </div>
 
       <div id="push"></div>
@@ -112,6 +113,11 @@
       </div>
     </div>
 
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap-transition.js"></script>
     <script src="assets/js/bootstrap-alert.js"></script>

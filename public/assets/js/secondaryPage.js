@@ -56,7 +56,7 @@ function initAccInfo(){
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
  	var emailRequest = $.ajax({
   url: "/userdata.json",
-  type: "POST",
+  type: "GET",
   data: {email : userEmail},
   dataType: "json"
 });

@@ -18,16 +18,18 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="assets/ico/favicon.png">
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+    
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+ 
  <!-- <script type="text/javascript" src="mainscreen.js"></script> -->
   </head>
 
   <body>
+  <script src="assets/Highcharts-3/js/highcharts.js"></script>
+  <script src="assets/Highcharts-3/js/modules/exporting.js"></script>
     <!-- NAVBAR
     ================================================== -->
     <div class="navbar-wrapper">
@@ -45,9 +47,9 @@
             <a class="brand" href="#">Your Cykel</a>
               <ul class="nav">
                 <!-- INSTEAD OF LINKS CALL FUNCTIONS TO CHANGE DIVS + RENDER INFO -->
-                <li class="active"><a href="#" onclick = "renderMap()">Map</a></li>
-                <li><a href="#about">Statistics</a></li>
-                <li><a href="#contact">Account</a></li>
+                <li id=map><a href="#" onclick = "renderMap()">Map</a></li>
+                <li id=stat><a href="#" onclick = "renderStats()">Statistics</a></li>
+                <li id=account><a href="#" onclick = "renderAcc()">Account</a></li>
               </ul>
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->
@@ -64,7 +66,7 @@
       <!-- Three columns of text below the carousel -->
 
       <!-- FOOTER -->
-     
+      <hr>
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>

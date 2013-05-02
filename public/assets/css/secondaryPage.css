@@ -229,26 +229,72 @@
     }
    
     #directions{
+		margin-top: 80px;
 		float: right;
 		width: 29%;
-		height: 700px;
+		height: 675px;
 		overflow: auto;
 		padding-right: 5%;
-		border-bottom:thin #000000;
 	}
 
 	#map_canvas { 
-   		float:left;
+    	margin-top: 80px;
+    	/*padding-top: 75px;*/
+    	float:left;
    		margin-left:5%;
   	    width: 60%;
-   		height: 700px;
+   		height: 675px;
+   		
 	}
+	#graph{
+		float:left;
+		padding-top: 80px;
+   		padding-left:5%;
+  	    width: 60%;
+   		height: 675px;
+   		clear:left;
+	}
+	#stats{
+	    text-align: center;
+		margin-top: 80px;
+		float: right;
+		width: 29%;
+		height: 675px;
+		overflow: auto;
+		padding-right: 5%;
+	}
+	#eva{
+		float:left;
+		padding-top: 80px;
+   		padding-left:18%;
+  	    width: 20%;
+   		height: 675px;
+   		clear:left;
+	}
+	#info{
+		text-align: left;
+		margin-top: 100px;
+		float: right;
+		width: 29%;
+		height: 675px;
+		overflow: auto;
+		padding-right: 25%;
+	}
+	table{
+		width:100%;
+	}
+	th,td{
+		text-align:left;
+		vertical-align:top;
+		padding:5px;
+	}
+	
 	 .marketing{
 	 	position: inherit;
-	 	text-align: 70%;
     	margin-top:100px;
     	margin-bottom:10px;
     	padding-top:5px;
     	left: 20px;
+    	display:block;
+    	clear:both;
     }
-    </style>

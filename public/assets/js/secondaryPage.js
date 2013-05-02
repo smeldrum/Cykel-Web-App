@@ -13,9 +13,30 @@ function cleardiv(name){
 		    $('#stats').remove();
 			break;
 		case "account":
+			$('#eva').remove();
+		    $('#info').remove();
 			break;
 	}
 }
+function renderAcc(){
+	 if(lastrendered!=null){
+    	$('#' + lastrendered).attr('class', null);   
+    	cleardiv(lastrendered);
+    }
+    $('#account').attr('class', 'active'); 
+    $('.container.marketing').before('<div id="eva" style="min-width: 400px; height: 400px; margin: 0 auto"></div>');
+	$('.container.marketing').before('<div id="info" width="300" height="200"></div>');
+    lastrendered = "account";
+    initAccInfo();
+}
+
+function initAccInfo(){
+ //$('#eva').append("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").fadeIn("slow");
+ $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
+ $('#info').append("<h2>Well Hello Kelly...</h2><hr>");
+ $('#info').append("<table><tr><th>Home: </th><td>Tufts University, 419 Boston Avenue, Medford, MA, United States</td></tr><tr><th>Work: </th><td> Fresh Pond Parkway, Cambridge, MA</td></tr><tr><th>Weight: </th><td> 346 lbs</td></tr><tr><th>Email: </th><td> fakey.mcfake@hotmail.com</td></tr></table>");
+}
+
 function renderStats(){
     if(lastrendered!=null){
     	$('#' + lastrendered).attr('class', null);   
@@ -23,12 +44,12 @@ function renderStats(){
     }
     $('#stat').attr('class', 'active'); 
 	$('.container.marketing').before('<div id="graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>');
+	$('.container.marketing').before('<div id="stats" width="300" height="200"></div>');
 	lastrendered = "stat";
-	//$('.container.marketing').before('<div id="stats" width="300" height="200"></div>');
 	initGraph();
 }
+//renders the calorie burning graph to the page
 function initGraph(){
-	
 	 var chart1;
      $(document).ready(function () {
      chart1 = new Highcharts.Chart({
@@ -76,10 +97,15 @@ function initGraph(){
                 data: [100, 150, 230, 305, 376]
             }]
      });
- });
+ 	 });
+ 	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td> 100</td></tr><tr><th>Total Calories Burned: </th><td> 5,000</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
+ 	   
+ 	 
 }
 
 
+//prepares page for divs, adds two divs, and calls initMap()
 function renderMap(){
  	if(lastrendered!=null){
  		$('#' + lastrendered).attr('class', null);   
@@ -91,6 +117,8 @@ function renderMap(){
 	lastrendered = "map";
 	initMap();
 }
+
+
 //initialize() sets the google map canvas, centers it, and calls 
 //functions to set markers and create polyline
 function initMap(){

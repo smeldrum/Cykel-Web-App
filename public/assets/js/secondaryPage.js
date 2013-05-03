@@ -22,12 +22,13 @@ function readCookie(name) {
 	return null;
 }
 
-function eraseCookie(name) {
-createCookie(name,"",-1);
+function del_cookie(name)
+{
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function logout(){
-	eraseCookie("email");
+	del_cookie("email");
 	window.location.replace("index.html");
 }
 function cleardiv(name){
@@ -69,11 +70,14 @@ function initAccInfo(){
     dataType: "json",
     success: function(data) {
   		console.log(data);
-  	    $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table>");
+  	    $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table><br /><button type='button' onclick='deactivate()'>Deactivate Account</button>");
   	}
  });
 }
 
+function deactivate(){
+	window.location.replace("deactivate.html");
+}
 function renderStats(){
     if(lastrendered!=null){
     	$('#' + lastrendered).attr('class', null);   

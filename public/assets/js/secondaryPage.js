@@ -88,12 +88,12 @@ function renderStats(){
 }
 //renders the calorie burning graph to the page
 function initGraph(data){
-	 var calarray;
+	/* var calarray;
 	 var i;
 	 calarray[0] = data[0].trips[0].calories;
 	 for(i = 1; i < data[0].trips.length;i++){
 	 	calarray[i] = calarray[i - 1] + data[0].trips[i].calories;
-	 }
+	 }*/
 	 var chart1;
      $(document).ready(function () {
      chart1 = new Highcharts.Chart({

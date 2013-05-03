@@ -253,6 +253,7 @@ app.post('/changedata', function(request, response) {
 					if (currpasshash === results.password) {
 						newpasshash = crypto.createHash('sha1').update(newpass).digest('hex');
 						results.password = newpasshash;
+						response.send()
 					} else {
 						response.writeHead(400);
 						response.send();
@@ -270,7 +271,6 @@ app.post('/changedata', function(request, response) {
 			results.save(function(err) {
 				if (err) console.log(err);
 			});
-			response.writeHead(200);
 			response.send();
 			
 		} else {

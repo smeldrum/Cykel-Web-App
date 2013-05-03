@@ -280,6 +280,9 @@
 		overflow: auto;
 		padding-right: 15%;
 	}
+	#change_error {
+		
+	}
 	table{
 		width:100%;
 	}

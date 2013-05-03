@@ -141,7 +141,7 @@ $(document).ready(function() {
 				$('#weight_warning').html("<span style='color: #FF0000'>Weight can only contain numbers</span>");
 				$('#weight_warning').fadeIn('fast');
 			} else if (parseInt($('#weight').val()) >= 1000) {
-				$('#weight_warning').html("<span style='color: #FF0000'>No offense, but at that weight I'm not sure this website is really your thing…</span>");
+				$('#weight_warning').html("<span style='color: #FF0000'>No offense, but at that weight I'm not sure this website is really your thing...</span>");
 				$('#weight_warning').fadeIn('fast');
 			} else if (parseInt($('#weight').val()) < 1000) {
 				$('#weight_warning').fadeOut('fast');
@@ -174,7 +174,6 @@ $(document).ready(function() {
 	
 	/* recover account */
 	$('#btn_submit_recover').click(function() {
-		console.log("clicked");
 		$.ajax({
 			type: "POST",
 			url: "/resurrect",
@@ -189,7 +188,6 @@ $(document).ready(function() {
 		});
 	});
 	$('#btn_submit_deactivate').click(function() {
-		console.log("clicked");
 		$.ajax({
 			type: "POST",
 			url: "/deleteaccount",
@@ -203,7 +201,4 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	
-	
 });

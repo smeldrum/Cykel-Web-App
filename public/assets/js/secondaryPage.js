@@ -59,6 +59,27 @@ function renderAcc(){
     initAccInfo();
 }
 
+function changeinfo() {
+	console.log("clicked");
+	$.ajax({
+		type: "POST",
+		url: "/changedata",
+		data: "email=" + readCookie('email') + "&home=" + $('#home').val() + "&work=" + $('#work').val()
+					   + "&weight=" + $('#weight').val() + "&phone=" + $('#phone').val() + "&currentpass=" 
+					   + $('#oldpass').val() + "&newpass=" + $('#newpass').val(),
+		success: function(msg) {
+			$(document).ready(function() {
+				window.location.replace('secondaryPage.html');
+			});
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			$(document).ready(function() {
+				document.getElementById('change_error').innerHTML="<span style='color: #FF0000'>An error occurred. Check your forms to make sure they're correct and try again.<br /><br /></span>";
+			});
+		}
+	});
+}
+
 function initAccInfo(){
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
  var data = '';
@@ -69,7 +90,7 @@ function initAccInfo(){
     dataType: "json",
     success: function(data) {
   		console.log(data);
-  	    $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table><br /><button type='button' onclick='deactivate()'>Deactivate Account</button>");
+  	    $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table><br /><h4>Update Info:</h4><form id='update'><input type='text' id='home' placeholder='New Home Address' /><input type='text' id='work' placeholder='New Work Address' /><input type='text' id='weight' placeholder='New Weight' /><input type='text' id='phone' placeholder='New Phone #' /><h4>Change Password:</h4><input type='password' id='oldpass' placeholder='Old Password' /><input type='password' id='newpass' placeholder='New Password' /><br /><button type='button' class='btn btn-info' id='btn_change' onclick='changeinfo()'>Change Info</button></form><div id='change_error'></div><button type='button' class='btn btn-danger' onclick='deactivate()'>Deactivate Account</button>");
   	}
  });
 }

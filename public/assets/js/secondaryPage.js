@@ -91,9 +91,10 @@ function initGraph(data){
 	 var calarray = new Array();
 	 var k;
 	 calarray[0] = data[0].trips[0].calories;
-	 for(k = 1; k < data[0].trips.length;k++){
-	 	calarray[k] = calarray[k - 1] + data[0].trips[k].calories;
-	 	
+	 for(k = 1; k < data[0].trips.length; k++){
+	 	calarray[k] = calarray[k - 1];
+	 	calarray[k] += data[0].trips[k].calories;	
+	 	calarray[k].toFixed(1);
 	 }
 	 var chart1;
      $(document).ready(function () {
@@ -144,7 +145,11 @@ function initGraph(data){
      	});
  	 });
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ calarray[k].toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (calarray[k]/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(calarray[k]/3500).toFixed(1)+"</td></tr></table>");
+ 	 var totalcal =  0;
+ 	 for(i = 0; i < data[0].trips.length ;i++){
+ 	 	totalcal += data[0].trips[i].calories;
+ 	 }
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal.toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (totalcal/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(totalcal/3500).toFixed(1)+"</td></tr></table>");  	 
 }
 
 

@@ -5,7 +5,7 @@
 #directions{
 float:none;
 width:100%;
-padding-top:15%;
+padding-top:25%;
 }
 #graph{
 	display:none;
@@ -14,7 +14,7 @@ padding-top:15%;
 #stats{
 float:none;
 width:100%;
-padding-top:20%;
+padding-top:25%;
 }
 #eva{
 	display:none;

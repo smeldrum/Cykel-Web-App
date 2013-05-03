@@ -55,16 +55,16 @@ function initAccInfo(){
  //$('#eva').append("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").fadeIn("slow");
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
  var data = '';
- 	$.ajax({
-  url: "/userdata.json",
-  type: "GET",
-  data: {email : userEmail},
-  dataType: "json",
-  success: function(data) {
-  	console.log(data);
-  	 $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table>");
-  }
-});
+ $.ajax({
+ 	url: "/userdata.json",
+ 	type: "GET",
+    data: {email : userEmail},
+    dataType: "json",
+    success: function(data) {
+  		console.log(data);
+  	    $('#info').append("<table><tr><th>Home: </th><td>"+data[0]['home']+"</td></tr><tr><th>Work: </th><td>"+data[0]['work']+"</td></tr><tr><th>Weight: </th><td>"+data[0]['weight']+" lbs</td></tr><tr><th>Email: </th><td>"+data[0]['email']+"</td></tr></table>");
+  	}
+ });
 }
 
 function renderStats(){
@@ -76,10 +76,19 @@ function renderStats(){
 	$('.container.marketing').before('<div id="graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>');
 	$('.container.marketing').before('<div id="stats" width="300" height="200"></div>');
 	lastrendered = "stat";
+	$.ajax({
+ 		url: "/userdata.json",
+ 		type: "GET",
+    	data: {email : userEmail},
+   		dataType: "json",
+   	    success: function(data) {
+  			initGraph(data);
+  		}
+ 	});
 	initGraph();
 }
 //renders the calorie burning graph to the page
-function initGraph(){
+function initGraph(data){
 	 var chart1;
      $(document).ready(function () {
      chart1 = new Highcharts.Chart({
@@ -129,7 +138,7 @@ function initGraph(){
      });
  	 });
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td> 100</td></tr><tr><th>Total Calories Burned: </th><td> 5,000</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td> 5,000</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
  	   
  	 
 }

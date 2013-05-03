@@ -88,7 +88,7 @@ function renderStats(){
 }
 //renders the calorie burning graph to the page
 function initGraph(data){
-	 var calarray;
+	 var calarray = new Array();
 	 var k;
 	 calarray[0] = data[0].trips[0].calories;
 	 for(k = 1; k < data[0].trips.length;i++){
@@ -138,7 +138,7 @@ function initGraph(data){
             },
             series: [{
                 name: 'Total Calories',
-                data: [100, 150, 230, 305, 376]
+                data: calarray
             }]
      	});
  	 });

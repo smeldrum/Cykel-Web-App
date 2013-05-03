@@ -139,9 +139,9 @@ function initGraph(data){
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
  	 var totalcal =  0;
  	 for(i = 0; i < data[0].trips.length ;i++){
- 	 	totalcal += data[0].trips[i];
+ 	 	totalcal += data[0].trips[i].calories;
  	 }
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal +"</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal.toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (totalcal/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(totalcal/3500).toFixed(1)+"</td></tr></table>");
  	   
  	 
 }
@@ -158,13 +158,21 @@ function renderMap(){
 	$('.container.marketing').before('<div id="directions" width="300" height="200"></div>');
 	lastrendered = "map";
 	initMap();
+	$.ajax({
+ 		url: "/userdata.json",
+ 		type: "GET",
+    	data: {email : userEmail},
+   		dataType: "json",
+   	    success: function(data) {
+  			direct(data);
+  		}
+ 	});
 }
 
 
 //initialize() sets the google map canvas, centers it, and calls 
 //functions to set markers and create polyline
 function initMap(){
-  console.log("CALLED");
   mapOptions = {
   center: new google.maps.LatLng(42.330497742, -71.095794678),
   zoom: 12,
@@ -182,16 +190,15 @@ function initMap(){
   if (request == null) {
  		return "Error creating request object --Ajax not supported?";	  		
   }	
- // homeandwork();
-  direct();
+  
 }
 
-function direct(){
+function direct(data){
  directionsDisplay = new google.maps.DirectionsRenderer();
  directionsDisplay.setMap(map);
  directionsDisplay.setPanel(document.getElementById("directions"));
- var start = userData["home"];
- var end = userData["work"];
+ var start = data[0]['home'];
+ var end = data[0]['work'];
  var request = {
     origin:start,
     destination:end,

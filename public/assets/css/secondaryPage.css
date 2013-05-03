@@ -232,18 +232,17 @@
 		margin-top: 80px;
 		float: right;
 		width: 29%;
-		height: 675px;
+		height: 550px;
 		overflow: auto;
 		padding-right: 5%;
 	}
 
 	#map_canvas { 
     	margin-top: 80px;
-    	/*padding-top: 75px;*/
     	float:left;
    		margin-left:5%;
   	    width: 60%;
-   		height: 675px;
+   		height: 550px;
    		
 	}
 	#graph{
@@ -259,7 +258,7 @@
 		margin-top: 80px;
 		float: right;
 		width: 29%;
-		height: 675px;
+		height: 400px;
 		overflow: auto;
 		padding-right: 5%;
 	}
@@ -276,7 +275,7 @@
 		margin-top: 100px;
 		float: right;
 		width: 29%;
-		height: 675px;
+		height: 550px;
 		overflow: auto;
 		padding-right: 15%;
 	}

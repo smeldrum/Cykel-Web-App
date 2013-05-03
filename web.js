@@ -193,7 +193,7 @@ app.post('/resurrect', function(request, response) {
 	user.findOne({email: email}, function(err, results) {
 		if (results) {
 			var d = new Date();
-			var diff = Math.abs(d.getTime() - doc.dateDeleted.getTime());
+			var diff = Math.abs(d.getTime() - results.dateDeleted.getTime());
 			if (diff <= 30) {
 				if (!err && hashedPassword === results.password && results.deleted) {
 					results.deleted = false;

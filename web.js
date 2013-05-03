@@ -222,6 +222,51 @@ app.get('/userdata.json', function(request, response) {
 	});
 });
 
+app.post('/changedata', function(request, response) {
+	var email = sanitize(request.body.email).xss();
+	var home = sanitize(request.body.home).xss();
+	var work = sanitize(request.body.work).xss();
+	var weight = sanitize(request.body.weight).xss();
+	var phone = sanitize(request.body.phone).xss();
+	var currpass = sanitize(request.body.currentpass).xss();
+	var newpass = sanitize(request.body.newpass).xss();
+	
+	user.findOne({email: email}, function(err, results) {
+		if (results) {
+			/* change password */
+			if (currpass != '') {
+				if (newpass != '') {
+					var currpasshash = crypto.createHash('sha1').update(currpass).digest('hex');
+					if (currpasshash === results.password) {
+						newpasshash = crypto.createHash('sha1').update(newpass).digest('hex');
+						results.password = newpasshash;
+					} else {
+						response.writeHead(400);
+						response.send();
+					}
+				} else {
+					response.writeHead(400);
+					response.send();
+				}
+			}
+			/* change other data */
+			if (home != '') results.home = home;
+			if (work != '') results.work = work;
+			if (weight != '') results.weight = weight;
+			if (phone != '') results.phone = phone;
+			results.save(function(err) {
+				if (err) console.log(err);
+			});
+			response.writeHead(200);
+			response.send();
+			
+		} else {
+			response.writeHead(400);
+			response.send();
+		}
+	});
+});
+
 app.post('/sendtext', function(request, response) {
 	var destnum = sanitize(request.body.number).xss();
 	var message = sanitize(request.body.message).xss();

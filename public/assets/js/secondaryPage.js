@@ -91,8 +91,9 @@ function initGraph(data){
 	 var calarray = new Array();
 	 var k;
 	 calarray[0] = data[0].trips[0].calories;
-	 for(k = 1; k < data[0].trips.length;i++){
+	 for(k = 1; k < data[0].trips.length;k++){
 	 	calarray[k] = calarray[k - 1] + data[0].trips[k].calories;
+	 	
 	 }
 	 var chart1;
      $(document).ready(function () {

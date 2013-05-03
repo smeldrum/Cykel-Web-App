@@ -188,6 +188,22 @@ $(document).ready(function() {
 			}
 		});
 	});
+	$('#btn_submit_deactivate').click(function() {
+		console.log("clicked");
+		$.ajax({
+			type: "POST",
+			url: "/deleteaccount",
+			data: "email=" + $('#email').val() + "&password=" + $('#password').val(),
+			success: function(msg) {
+				window.location.replace("index.html");
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$('#recover_warning').html("Wrong Username/Password. Please try again.");
+				$('#recover_warning').fadeIn('fast');
+			}
+		});
+	});
+
 	
 	
 });

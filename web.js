@@ -148,7 +148,7 @@ app.post('/login', function(request, response) {
 				response.send();
 			} else if (doc.deleted) {
 				var d = new Date();
-				var diff = Math.abs(d.getTime() - doc.dateDeleted.getTime());
+				var diff = Math.abs(d.getTime() - doc.dateDeleted.getTime())/(24*60*60*1000);
 				if (diff > 30) {
 					doc.remove();
 					response.writeHead(400);
@@ -190,10 +190,12 @@ app.post('/resurrect', function(request, response) {
 	var email    = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
 	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
+	console.log(email);
 	user.findOne({email: email}, function(err, results) {
 		if (results) {
 			var d = new Date();
-			var diff = Math.abs(d.getTime() - results.dateDeleted.getTime());
+			var diff = Math.abs(d.getTime() - results.dateDeleted.getTime())/(24*60*60*1000);
+			console.log(diff);
 			if (diff <= 30) {
 				if (!err && hashedPassword === results.password && results.deleted) {
 					results.deleted = false;

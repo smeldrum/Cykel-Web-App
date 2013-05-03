@@ -268,7 +268,7 @@ app.post('/recvtext', function(request, response) {
 					"\"The difference between me and Lance Armstrong is that I still have a chance to win the Tour de France\" - Anyone. Good luck"
 					]
 					var quotenum = Math.floor((Math.random()*quotes.length)+1);
-					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response>' + quotes[quotenum] + '</Sms></Response>';
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>' + quotes[quotenum] + '</Sms></Response>';
 					var newtrip = new trip;
 					newtrip.start = d;
 					doc.trips.push({start: d, finish: null, duration: 0, calories: 0});

@@ -88,6 +88,12 @@ function renderStats(){
 }
 //renders the calorie burning graph to the page
 function initGraph(data){
+	 var calarray;
+	 var i;
+	 calarray[0] = data[0].trips[0].calories;
+	 for(i = 1; i < data[0].trips.length;i++){
+	 	calarray[i] = calarray[i - 1] + data[0].trips[i].calories;
+	 }
 	 var chart1;
      $(document).ready(function () {
      chart1 = new Highcharts.Chart({
@@ -137,13 +143,7 @@ function initGraph(data){
      });
  	 });
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
- 	 var totalcal =  0;
- 	 for(i = 0; i < data[0].trips.length ;i++){
- 	 	totalcal += data[0].trips[i].calories;
- 	 }
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal.toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (totalcal/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(totalcal/3500).toFixed(1)+"</td></tr></table>");
- 	   
- 	 
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ calarray[i].toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (calarray[i]/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(calarray[i]/3500).toFixed(1)+"</td></tr></table>");
 }
 
 
@@ -189,8 +189,7 @@ function initMap(){
   }
   if (request == null) {
  		return "Error creating request object --Ajax not supported?";	  		
-  }	
-  
+  }	  
 }
 
 function direct(data){
@@ -211,19 +210,5 @@ function direct(data){
     	directionsDisplay.setDirections(result);
  	}
  });
-}
-//homeandwork is meant to retrieve the user's home and work data from mongo to
-//be used by direct() as start and end points
-function homeandwork(){
-	$.getJSON('/userdata.json', function(data) {
-  		var home;
-  		var work;
- 		$.each(data, function(key, val) {
-    		if(key="home") home = val;
-    		if(key="work") work = val;
- 		}); 
- 		console.log(home);
- 		console.log(work);
- 	}); 
 }
    

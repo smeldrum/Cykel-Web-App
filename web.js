@@ -69,9 +69,9 @@ app.all('/', function(request, response, next) {
 });
 
 app.post('/adduser', function(request, response, next) {
-	var email = sanitize(request.body.email).xss();
-	var phone = sanitize(request.body.phone).xss();
-	var password = sanitize(request.body.password).xss();
+	var email            = sanitize(request.body.email).xss();
+	var phone            = sanitize(request.body.phone).xss();
+	var password         = sanitize(request.body.password).xss();
 	var password_confirm = sanitize(request.body.password_confirm).xss();
 	phone = phone.replace(/[^0-9]/g, '');
 
@@ -101,10 +101,10 @@ app.post('/adduser', function(request, response, next) {
 });
 
 app.post('/addadditional', function(request, response) {
-	var email = sanitize(request.body.email).xss();
+	var email        = sanitize(request.body.email).xss();
 	var home_address = sanitize(request.body.home_address).xss();
 	var work_address = sanitize(request.body.work_address).xss();
-	var weight = sanitize(request.body.weight).xss();
+	var weight       = sanitize(request.body.weight).xss();
 	
 	check(home_address, 'Home address blank').len(1);
 	check(work_address, 'Work address blank').len(1);
@@ -138,7 +138,7 @@ app.post('/addadditional', function(request, response) {
 });
 
 app.post('/login', function(request, response) {
-	var email = sanitize(request.body.email).xss();
+	var email    = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
 	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	
@@ -166,7 +166,7 @@ app.post('/login', function(request, response) {
 });
 
 app.post('/deleteaccount', function(request, response) {
-	var email = sanitize(request.body.email).xss();
+	var email    = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
 	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	user.findOne({email: email}, function(err, results) {
@@ -187,22 +187,33 @@ app.post('/deleteaccount', function(request, response) {
 });
 
 app.post('/resurrect', function(request, response) {
-	var email = sanitize(request.body.email).xss();
+	var email    = sanitize(request.body.email).xss();
 	var password = sanitize(request.body.password).xss();
 	var hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
 	user.findOne({email: email}, function(err, results) {
 		if (results) {
-			if (!err && hashedPassword === results.password && results.deleted) {
-				results.deleted = false;
-				results.save(function (err) {
-					if (err) console.log(err);
-				});
-				response.send();
+			var d = new Date();
+			var diff = Math.abs(d.getTime() - doc.dateDeleted.getTime());
+			if (diff <= 30) {
+				if (!err && hashedPassword === results.password && results.deleted) {
+					results.deleted = false;
+					results.save(function (err) {
+						if (err) console.log(err);
+					});
+					response.send();
+				} else {
+					console.log("Wrong password or wasn't deleted");
+					response.writeHead(400);
+					response.send();
+				}
 			} else {
+				console.log("Too old");
+				results.remove();
 				response.writeHead(400);
 				response.send();
 			}
 		} else {
+			console.log("Result not found");
 			response.writeHead(400);
 			response.send();
 		}
@@ -223,13 +234,13 @@ app.get('/userdata.json', function(request, response) {
 });
 
 app.post('/changedata', function(request, response) {
-	var email = sanitize(request.body.email).xss();
-	var home = sanitize(request.body.home).xss();
-	var work = sanitize(request.body.work).xss();
-	var weight = sanitize(request.body.weight).xss();
-	var phone = sanitize(request.body.phone).xss();
+	var email    = sanitize(request.body.email).xss();
+	var home     = sanitize(request.body.home).xss();
+	var work     = sanitize(request.body.work).xss();
+	var weight   = sanitize(request.body.weight).xss();
+	var phone    = sanitize(request.body.phone).xss();
 	var currpass = sanitize(request.body.currentpass).xss();
-	var newpass = sanitize(request.body.newpass).xss();
+	var newpass  = sanitize(request.body.newpass).xss();
 	
 	user.findOne({email: email}, function(err, results) {
 		if (results) {

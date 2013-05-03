@@ -139,9 +139,9 @@ function initGraph(data){
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
  	 var totalcal =  0;
  	 for(i = 0; i < data[0].trips.length ;i++){
- 	 	totalcal += data[0].trips[i];
+ 	 	totalcal += data[0].trips[i].calories;
  	 }
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal +"</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+totalcal/3500+"</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
  	   
  	 
 }

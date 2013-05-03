@@ -88,12 +88,12 @@ function renderStats(){
 }
 //renders the calorie burning graph to the page
 function initGraph(data){
-	/* var calarray;
-	 var i;
+	 var calarray;
+	 var k;
 	 calarray[0] = data[0].trips[0].calories;
-	 for(i = 1; i < data[0].trips.length;i++){
-	 	calarray[i] = calarray[i - 1] + data[0].trips[i].calories;
-	 }*/
+	 for(k = 1; k < data[0].trips.length;i++){
+	 	calarray[k] = calarray[k - 1] + data[0].trips[k].calories;
+	 }
 	 var chart1;
      $(document).ready(function () {
      chart1 = new Highcharts.Chart({
@@ -140,10 +140,10 @@ function initGraph(data){
                 name: 'Total Calories',
                 data: [100, 150, 230, 305, 376]
             }]
-     });
+     	});
  	 });
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ calarray[i].toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (calarray[i]/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(calarray[i]/3500).toFixed(1)+"</td></tr></table>");
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ calarray[k].toFixed(1) +"</td></tr><tr><th>McDonald French Fries Burned: </th><td>"+ (calarray[k]/5).toFixed(1) +"</td></tr><tr><th>Approx. Pounds Lost: </th><td>"+(calarray[k]/3500).toFixed(1)+"</td></tr></table>");
 }
 
 

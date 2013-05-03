@@ -127,7 +127,7 @@ function initGraph(data){
                 }]
             },
             tooltip: {
-                valueSuffix: '°C'
+                valueSuffix: 'cal'
             },
             legend: {
                 layout: 'vertical',

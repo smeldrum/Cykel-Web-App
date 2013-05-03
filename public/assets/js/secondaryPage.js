@@ -85,7 +85,6 @@ function renderStats(){
   			initGraph(data);
   		}
  	});
-	initGraph();
 }
 //renders the calorie burning graph to the page
 function initGraph(data){
@@ -138,7 +137,11 @@ function initGraph(data){
      });
  	 });
  	 $('#stats').append("<h3>YOUR STATS<h3> <hr>");
- 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td> 5,000</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
+ 	 var totalcal =  0;
+ 	 for(i = 0; i < data[0].trips.length ;i++){
+ 	 	totalcal += data[0].trips[i];
+ 	 }
+ 	 $('#stats').append("<table><tr><th>Total Miles Ridden: </th><td>"+ data[0]['distance'] +"</td></tr><tr><th>Total Calories Burned: </th><td>"+ totalcal +"</td></tr><tr><th>Approx. Pounds Lost: </th><td> 15</td></tr><tr><th>Money Saved on Gas: </th><td> $900</td></tr></table>");
  	   
  	 
 }

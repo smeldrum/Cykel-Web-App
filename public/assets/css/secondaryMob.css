@@ -4,13 +4,25 @@
 }
 #directions{
 float:none;
+width:100%;
+padding-top:10%;
 }
 #graph{
 	display:none;
 	width:0%
 }
+#stats{
+float:none;
+width:100%;
+margin-top: 100px;
+}
 #eva{
 	display:none;
 	width:0%
+}
+#info{
+float:none;
+width:100%;
+
 }
 

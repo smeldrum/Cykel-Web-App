@@ -1,10 +1,16 @@
 #map_canvas{
 	display:none;
+	width:0%
+}
+#directions{
+float:none;
 }
 #graph{
 	display:none;
+	width:0%
 }
 #eva{
 	display:none;
+	width:0%
 }
 

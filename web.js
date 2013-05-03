@@ -145,7 +145,6 @@ app.post('/login', function(request, response) {
 	var userlogin = user.findOne({email: email}, function(err, doc) {
 		if (doc) {
 			if (doc.password === hashedPassword && !doc.deleted) {
-				console.log("cool");
 				response.send();
 			} else if (doc.deleted) {
 				var d = new Date();
@@ -248,7 +247,28 @@ app.post('/recvtext', function(request, response) {
 		var sender = user.findOne({ phone: from }, function (err, doc) {
 			if (doc) {
 				if (!doc.intransit) {
-					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response><Sms>Thanks. Good luck on your trip!</Sms></Response>';
+					var quotes = [
+					"\"Life is like riding a bicycle. To keep your balance you must keep moving\" - Albert Einstein. Good luck", 
+					"\"I thought of that while riding my bicycle\" - Albert Einstein re: the Theory of Relativity. Good luck",
+					"\"Whenever I see an adult on a bicycle, I have hope for the human race\" - H.G. Wells. Good luck", 
+					"\"Cycle tracks will abound in Utopia\" - H.G. Wells. Good luck",
+					"\"The bicycle is a curious vehicle. Its passenger is its engine.\" - John Howard. Good luck",
+					"\"If constellations had been named in the 20th century, I suppose we would see bicycles\" - Carl Sagan. Good luck",
+					"\"When man invented the bicycle, he reached the peak of his attainments\" - Elizabeth West. Good luck",
+					"\"Bicycling is a big part of the future. It has to be\" - Bill Nye the Science Guy. Good luck",
+					"\"There's something wrong with a society that drives a car to workout in a gym.\" - Bill Nye the Science Guy. Good luck",
+					"\"I finally concluded that all failure was from a wobbling will rather than a wobbling will\" - Frances Willard. Good luck",
+					"\"It never gets easier, you just go faster\" - Greg LeMond, Tour de France. Good luck",
+					"\"When my legs hurt, I say: \'Shut up legs! Do what I tell you to do!\'\" - Jens Voigt. Good luck",
+					"\"Melancholy is incompatible with bicycling\" - James E. Starrs. Good luck",
+					"\"Nothing compares to the simple pleasure of riding a bike\" - John F. Kennedy. Good luck",
+					"\"Think of bicycles as rideable art that can just about save the world\" - Grant Petersen. Good luck",
+					"\"Whoever invented the bicycle deserves the thanks of humanity\" - Grant Petersen. Good luck",
+					"\"There's a certain amount of romance to bikes. They're both beautiful and utilitarian\" - Dave Eggers. Good luck",
+					"\"The difference between me and Lance Armstrong is that I still have a chance to win the Tour de France\" - Anyone. Good luck"
+					]
+					var quotenum = Math.floor((Math.random()*quotes.length)+1);
+					var twiml = '<?xml version="1.0" encoding="UTF-8" ?><Response>' + quotes[quotenum] + '</Sms></Response>';
 					var newtrip = new trip;
 					newtrip.start = d;
 					doc.trips.push({start: d, finish: null, duration: 0, calories: 0});

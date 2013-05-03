@@ -94,7 +94,7 @@ function initGraph(data){
 	 for(k = 1; k < data[0].trips.length; k++){
 	 	calarray[k] = calarray[k - 1];
 	 	calarray[k] += data[0].trips[k].calories;	
-	 	calarray[k].toFixed(1);
+	 	calarray[k] =  Math.round( calarray[k] * 10 ) / 10;
 	 }
 	 var chart1;
      $(document).ready(function () {
@@ -114,8 +114,7 @@ function initGraph(data){
                 x: -20
             },
             xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    
             },
             yAxis: {
                 title: {

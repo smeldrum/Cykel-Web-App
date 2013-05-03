@@ -60,7 +60,6 @@ function renderAcc(){
 }
 
 function initAccInfo(){
- //$('#eva').append("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").fadeIn("slow");
  $("<img src= 'http://www.getoutdoors.com/goblog/uploads/eva_longoria_bebe_bicycle.jpg' width= '266' height= '400'>").hide().appendTo("#eva").fadeIn(1000);
  var data = '';
  $.ajax({

@@ -22,7 +22,14 @@ function readCookie(name) {
 	return null;
 }
 
+function eraseCookie(name) {
+createCookie(name,"",-1);
+}
 
+function logout(){
+	eraseCookie("email");
+	window.location.replace("index.html");
+}
 function cleardiv(name){
 	switch(name){
 		case "map":
